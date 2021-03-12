@@ -4,24 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-// 测试注释
 public class TestScreenCtrl : UICtrlBase
 {
-    // 增加测试
     public Image m_Image_img;
     public Transform m_Image_tf;
-    public GameObject m_name_go;
     public TextMeshProUGUI m_name_text;
+    public GameObject m_name_go;
     public Transform m_root_tf;
     public GameObject m_rt_go;
     public RawImage m_rt_rimg;
-    /* Auto Generated Fields Insert To Here */
+    public Transform m_faaa_tf;
+    public GameObject m_faaa_go;
+    /* 变量自动生成位置，请勿删除此行 */
 
 
-    public GameObject m_g;
-
-    /* Auto Generated Methods Insert To Here */
-
-
+    /* 方法自动生成位置，请勿删除此行 */
 
 }

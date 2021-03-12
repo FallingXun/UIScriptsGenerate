@@ -31,7 +31,7 @@ public class UIConstUpdate : ClassBase
             return;
         }
 
-        m_ClassName = typeof(UIConst).Name;
+        SetClassName(typeof(UIConst).Name);
 
         // 反射获取类信息
         Assembly assembly = typeof(UIConst).Assembly;
@@ -39,27 +39,27 @@ public class UIConstUpdate : ClassBase
         {
             return;
         }
-        Type classType = assembly.GetType(m_ClassName);
+        Type classType = assembly.GetType(ClassName);
         if (classType == null)
         {
-            Debug.LogErrorFormat("找不到类 {0} ，请重新生成！", m_ClassName);
+            Debug.LogErrorFormat("找不到类 {0} ，请重新生成！", ClassName);
             return;
         }
 
 
-        FileInfo file = UIScriptsHelper.FindClassFileInfo(m_ClassName);
+        FileInfo file = UIScriptsHelper.FindClassFileInfo(ClassName);
         if (file == null)
         {
-            Debug.LogErrorFormat("找不到类文件 {0}.cs ，请重新生成！", m_ClassName);
+            Debug.LogErrorFormat("找不到类文件 {0}.cs ，请重新生成！", ClassName);
             return;
         }
         using (var reader = file.OpenText())
         {
-            m_ClassStr = reader.ReadToEnd();
+            SetClassText(reader.ReadToEnd());
         }
-        if (string.IsNullOrEmpty(m_ClassStr))
+        if (string.IsNullOrEmpty(ClassStr))
         {
-            Debug.LogErrorFormat("读取 {0} 类文件内容失败!", m_ClassName);
+            Debug.LogErrorFormat("读取 {0} 类文件内容失败!", ClassName);
             return;
         }
 
@@ -71,16 +71,16 @@ public class UIConstUpdate : ClassBase
             return;
         }
         FieldBase field = new FieldBase(Const.Access_Public, Const.Declaration_Const, fieldName, Const.Return_String, defaultValue);
-        m_FieldList.Add(field);
+        AddField(field);
 
-        m_Legal = true;
+        SetLegal(true);
     }
 
 
     #region 基类方法
     protected override List<AbstractField> GetClassFields()
     {
-        return m_FieldList;
+        return FieldList;
     }
     #endregion
 }

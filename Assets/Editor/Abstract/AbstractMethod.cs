@@ -60,7 +60,7 @@ public abstract class AbstractMethod
 
     public virtual string GetPrefixSpace()
     {
-        return "";
+        return "    ";
     }
    
 }

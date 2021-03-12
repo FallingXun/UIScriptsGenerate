@@ -4,12 +4,9 @@ using UnityEditor;
 
 public class ClassBase : AbstractClass
 {
-    protected string m_ClassName = "";
-    protected bool m_Legal = false;
-    protected List<AbstractField> m_FieldList = new List<AbstractField>();
-    protected List<AbstractMethod> m_MethodList = new List<AbstractMethod>();
-    protected string m_ClassStr = "";
+    #region 变量定义
 
+    private bool m_Legal = false;
     /// <summary>
     /// 是否合法，表明当前对象是否能正确使用
     /// </summary>
@@ -21,6 +18,7 @@ public class ClassBase : AbstractClass
         }
     }
 
+    private string m_ClassName = "";
     /// <summary>
     /// 类名
     /// </summary>
@@ -32,6 +30,7 @@ public class ClassBase : AbstractClass
         }
     }
 
+    private string m_ClassStr = "";
     /// <summary>
     /// 类文本
     /// </summary>
@@ -43,6 +42,121 @@ public class ClassBase : AbstractClass
         }
     }
 
+    private List<AbstractField> m_FieldList = new List<AbstractField>();
+    /// <summary>
+    /// 变量列表
+    /// </summary>
+    public List<AbstractField> FieldList
+    {
+        get
+        {
+            return m_FieldList;
+        }
+    }
+
+    private List<AbstractMethod> m_MethodList = new List<AbstractMethod>();
+    /// <summary>
+    /// 方法列表
+    /// </summary>
+    public List<AbstractMethod> MethodList
+    {
+        get
+        {
+            return m_MethodList;
+        }
+    }
+
+    private List<string> m_NamespaceList = new List<string>();
+    /// <summary>
+    /// 命名空间列表
+    /// </summary>
+    public List<string> NamespaceList
+    {
+        get
+        {
+            return m_NamespaceList;
+        }
+    }
+
+    private AbstractMethod m_ConstructFunc;
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    public AbstractMethod ConstructFunc
+    {
+        get
+        {
+            return m_ConstructFunc;
+        }
+    }
+
+    #endregion
+
+    #region 通用方法
+    /// <summary>
+    /// 设置合法性
+    /// </summary>
+    /// <param name="state"></param>
+    protected void SetLegal(bool state)
+    {
+        m_Legal = state;
+    }
+
+    /// <summary>
+    /// 设置类名
+    /// </summary>
+    /// <param name="name"></param>
+    protected void SetClassName(string name)
+    {
+        m_ClassName = name;
+    }
+
+    /// <summary>
+    /// 设置构造函数
+    /// </summary>
+    /// <param name="func"></param>
+    protected void SetConstructFunc(AbstractMethod func)
+    {
+        m_ConstructFunc = func;
+    }
+
+    /// <summary>
+    /// 设置类源文本
+    /// </summary>
+    /// <param name="str"></param>
+    protected void SetClassText(string str)
+    {
+        m_ClassStr = str;
+    }
+
+    /// <summary>
+    /// 添加命名空间
+    /// </summary>
+    /// <param name="ns"></param>
+    protected void AddNamespace(string ns)
+    {
+        m_NamespaceList.Add(ns);
+    }
+
+    /// <summary>
+    /// 添加变量
+    /// </summary>
+    /// <param name="field"></param>
+    protected void AddField(AbstractField field)
+    {
+        m_FieldList.Add(field);
+    }
+
+    /// <summary>
+    /// 添加方法
+    /// </summary>
+    /// <param name="method"></param>
+    protected void AddMethod(AbstractMethod method)
+    {
+        m_MethodList.Add(method);
+    }
+
+    #endregion
 
     #region 基类方法
     protected override string GetAccessModifier()
@@ -87,6 +201,8 @@ public class ClassBase : AbstractClass
 
     public override string UpdateClass(string oldClass)
     {
+        oldClass = oldClass.Replace(Const.Str_NormalSpace + Const.Sign_Fields, Const.Sign_Fields);
+        oldClass = oldClass.Replace(Const.Str_NormalSpace + Const.Sign_Methods, Const.Sign_Methods);
         return oldClass.Replace(Const.Sign_Fields, CombineFields()).Replace(Const.Sign_Methods, CombineMethod());
     }
 
@@ -167,7 +283,7 @@ public class ClassBase : AbstractClass
             }
         }
         // 添加后续插入标识
-        builder.AppendLine(Const.Sign_Fields);
+        builder.AppendLine(Const.Str_NormalSpace + Const.Sign_Fields);
         return builder.ToString();
     }
 
@@ -203,7 +319,7 @@ public class ClassBase : AbstractClass
             }
         }
         // 添加后续插入标识
-        builder.AppendLine(Const.Sign_Methods);
+        builder.AppendLine(Const.Str_NormalSpace + Const.Sign_Methods);
         return builder.ToString();
     }
 

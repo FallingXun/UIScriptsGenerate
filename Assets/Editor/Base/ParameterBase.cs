@@ -5,19 +5,30 @@ using System.Text;
 
 public class ParameterBase : AbstractParameter
 {
+    private string m_ParamModifier = "";
+    private string m_ParamName = "";
+    private string m_ParamType = "";
+
+    public ParameterBase(string modifier, string paramName, string paramType)
+    {
+        m_ParamModifier = modifier;
+        m_ParamName = paramName;
+        m_ParamType = paramType;
+    }
+
     protected override string GetParameterModifier()
     {
-        throw new System.NotImplementedException();
+        return m_ParamModifier;
     }
 
     protected override string GetParameterName()
     {
-        throw new System.NotImplementedException();
+        return m_ParamName;
     }
 
     protected override string GetParameterType()
     {
-        throw new System.NotImplementedException();
+        return m_ParamType;
     }
 
     public override string GetValue()

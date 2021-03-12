@@ -69,9 +69,9 @@ public class FieldBase : AbstractField
         var defaultValue = GetFieldDefaultValue();
         if (string.IsNullOrEmpty(defaultValue) == false)
         {
-            builder.AppendFormat(" = {0};", defaultValue);
+            builder.AppendFormat(" = {0}", defaultValue);
         }
-
+        builder.Append(";");
         return builder.ToString();
     }
 }

@@ -49,9 +49,11 @@ public class Const
     public const string Namespace_UnityEngine = "UnityEngine";
     public const string Namespace_UnityEngine_UI = "UnityEngine.UI";
     public const string Namespace_TMPro = "TMPro";
+    public const string Namespace_CnfSprotoType = "CnfSprotoType";
+    public const string Namespace_DG_Tweening = "DG.Tweening";
 
-    public const string Sign_Fields = "/* Auto Generated Fields Insert To Here */";
-    public const string Sign_Methods = "/* Auto Generated Methods Insert To Here */";
+    public const string Sign_Fields = "/* 变量自动生成位置，请勿删除此行 */";
+    public const string Sign_Methods = "/* 方法自动生成位置，请勿删除此行 */";
 
     public const string Class_UICtrlBase = "UICtrlBase";
     public const string Class_UISubCtrlBase = "UISubCtrlBase";
@@ -64,6 +66,21 @@ public class Const
     public const string Str_UISubCtrlEndType = "SubCtrl";
     public const string Str_UIScreenEndType = "Screen";
     public const string Str_UISubScreenEndType = "SubScreen";
+    public const string Str_UIParam = "param";
+    public const string Str_UICtrlParam = "m_Ctrl";
+    public const string Str_UICtrlBaseParam = "CtrlBase";
+
+    public const string Str_MethodBase = "    base.{0}();";
+    public const string Str_NormalSpace = "    ";
+
+    public const string Str_UIMethod_OnLoadSuccess = "OnLoadSuccess";
+    public const string Str_UIMethod_OnInit = "OnInit";
+    public const string Str_UIMethod_Dispose = "Dispose";
+    public const string Str_UIMethod_OnClose = "OnClose";
+    public const string Str_UIMethod_OnClickMaskArea = "OnClickMaskArea"; 
+    public const string Str_UIMethod_RegisterUI = "RegisterUI"; 
+    public const string Str_UIMethod_RegisterFevent = "RegisterFevent ";
+
 
     public const string Symbol_Split = "|";
     public const string Symbol_Combine = "_";

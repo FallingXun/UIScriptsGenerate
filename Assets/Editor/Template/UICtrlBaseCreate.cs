@@ -27,7 +27,14 @@ public class UICtrlBaseCreate : ClassBase
         {
             return;
         }
-        m_ClassName = root.name + Const.Str_UICtrlEndType;
+
+        AddNamespace(Const.Namespace_System_Collections);
+        AddNamespace(Const.Namespace_System_Collections_Generic);
+        AddNamespace(Const.Namespace_UnityEngine);
+        AddNamespace(Const.Namespace_UnityEngine_UI);
+        AddNamespace(Const.Namespace_TMPro);
+
+        SetClassName(root.name + Const.Str_UICtrlEndType);
         foreach (var tf in tfs)
         {
             TagData data = UIScriptsHelper.ParseName(tf.gameObject);
@@ -45,11 +52,11 @@ public class UICtrlBaseCreate : ClassBase
                 string fieldType = t.Name;
                 string fieldName = UIScriptsHelper.GetFieldName(data.name, tag);
                 FieldBase field = new FieldBase(Const.Access_Public, "", fieldName, fieldType, "");
-                m_FieldList.Add(field);
+                AddField(field);
             }
         }
 
-        m_Legal = true;
+        SetLegal(true);
     }
 
     #region 基类方法
@@ -61,12 +68,12 @@ public class UICtrlBaseCreate : ClassBase
 
     protected override List<AbstractField> GetClassFields()
     {
-        return m_FieldList;
+        return FieldList;
     }
 
     protected override string GetClassName()
     {
-        return m_ClassName;
+        return ClassName;
     }
 
     protected override string GetParentClass()
@@ -76,15 +83,7 @@ public class UICtrlBaseCreate : ClassBase
 
     protected override List<string> GetUsingNamespace()
     {
-        List<string> l = new List<string>()
-        {
-            Const.Namespace_System_Collections,
-            Const.Namespace_System_Collections_Generic,
-            Const.Namespace_UnityEngine,
-            Const.Namespace_UnityEngine_UI,
-            Const.Namespace_TMPro
-        };
-        return l;
+        return NamespaceList;
     }
     #endregion
 }

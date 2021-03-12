@@ -5,49 +5,108 @@ using System.Text;
 
 public class MethodBase : AbstractMethod
 {
+    private string m_MethodName = "";
+    private string m_ReturnType = "";
+    private string m_AccessModifier = "";
+    private string m_DeclarationModifier = "";
+    private string m_Genericity = "";
+    private string m_GenericityLimited = "";
+    private List<AbstractParameter> m_ParamList;
+    private List<string> m_ParentParamValueList;
+    private List<string> m_MethodBody;
+
+    public MethodBase(string access, string declaration, string methodName, string returnType)
+    {
+        m_AccessModifier = access;
+        m_DeclarationModifier = declaration;
+        m_MethodName = methodName;
+        m_ReturnType = returnType;
+    }
+
+    public MethodBase(string access, string declaration, string methodName, string returnType, List<AbstractParameter> paramList)
+    {
+        m_AccessModifier = access;
+        m_DeclarationModifier = declaration;
+        m_MethodName = methodName;
+        m_ReturnType = returnType;
+        m_ParamList = paramList;
+    }
+
+
+    public MethodBase(string access, string declaration, string methodName, string returnType, List<string> parentParamValueList)
+    {
+        m_AccessModifier = access;
+        m_DeclarationModifier = declaration;
+        m_MethodName = methodName;
+        m_ReturnType = returnType;
+        m_ParentParamValueList = parentParamValueList;
+    }
+
+    public MethodBase(string access, string declaration, string methodName, string returnType, List<AbstractParameter> paramList, List<string> parentParamValueList)
+    {
+        m_AccessModifier = access;
+        m_DeclarationModifier = declaration;
+        m_MethodName = methodName;
+        m_ReturnType = returnType;
+        m_ParamList = paramList;
+        m_ParentParamValueList = parentParamValueList;
+    }
+
+    public MethodBase(string access, string declaration, string methodName, string returnType, List<AbstractParameter> paramList, List<string> parentParamValueList, List<string> methodBody)
+    {
+        m_AccessModifier = access;
+        m_DeclarationModifier = declaration;
+        m_MethodName = methodName;
+        m_ReturnType = returnType;
+        m_ParamList = paramList;
+        m_ParentParamValueList = parentParamValueList;
+        m_MethodBody = methodBody;
+    }
+
+    #region 基类方法
     protected override string GetAccessModifier()
     {
-        throw new System.NotImplementedException();
+        return m_AccessModifier;
     }
 
     protected override string GetDeclarationModifier()
     {
-        throw new System.NotImplementedException();
+        return m_DeclarationModifier;
     }
 
     protected override string GetGenericity()
     {
-        throw new System.NotImplementedException();
+        return m_Genericity;
     }
 
     protected override string GetGenericityLimited()
     {
-        throw new System.NotImplementedException();
+        return m_GenericityLimited;
     }
 
     protected override List<string> GetMethodBody()
     {
-        throw new System.NotImplementedException();
+        return m_MethodBody;
     }
 
     protected override string GetMethodName()
     {
-        throw new System.NotImplementedException();
+        return m_MethodName;
     }
 
     protected override List<AbstractParameter> GetMethodParameters()
     {
-        throw new System.NotImplementedException();
+        return m_ParamList;
     }
 
     protected override List<string> GetParentParameterValues()
     {
-        throw new System.NotImplementedException();
+        return m_ParentParamValueList;
     }
 
     protected override string GetReturnType()
     {
-        throw new System.NotImplementedException();
+        return m_ReturnType;
     }
 
     public override string GetValue()
@@ -74,9 +133,14 @@ public class MethodBase : AbstractMethod
         {
             returnType = Const.Return_Void;
         }
-        builder.AppendFormat(format, returnType);
+        builder.Append(returnType);
 
-        builder.AppendFormat(format, GetMethodName());
+        var methodName = GetMethodName();
+        // 构造函数没有变量名
+        if (string.IsNullOrEmpty(methodName) == false)
+        {
+            builder.AppendFormat(" {0}", methodName);
+        }
 
         builder.Append("(");
         var parameters = GetMethodParameters();
@@ -108,11 +172,24 @@ public class MethodBase : AbstractMethod
             }
             builder.Append(")");
         }
-
+        builder.AppendLine();
         builder.AppendLine(GetPrefixSpace() + "{");
-        builder.AppendLine(GetPrefixSpace());
+
+        if (m_MethodBody != null && m_MethodBody.Count > 0)
+        {
+            for (int i = 0; i < m_MethodBody.Count; i++)
+            {
+                builder.AppendLine(GetPrefixSpace() + m_MethodBody[i]);
+            }
+        }
+        else
+        {
+            builder.AppendLine(GetPrefixSpace());
+        }
+
         builder.AppendLine(GetPrefixSpace() + "}");
 
         return builder.ToString();
     }
+    #endregion
 }

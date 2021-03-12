@@ -190,6 +190,38 @@ public class HierarchyEditor : Editor
             AssetDatabase.Refresh();
         }
     }
+
+    [MenuItem("GameObject/UI脚本/ScreenBase/生成脚本", false, 0)]
+    public static void CreateScreenClass()
+    {
+        UIScreenBaseCreate ctrl = new UIScreenBaseCreate(Selection.activeGameObject);
+        if (ctrl.IsLegal)
+        {
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+            string scriptName = ctrl.ClassName;
+            string directoryPath = folder;
+            string filePath = directoryPath + "/" + scriptName + ".cs";
+            if (File.Exists(filePath))
+            {
+                Debug.Log(scriptName + "已存在，路径为：" + filePath);
+                return;
+            }
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+            {
+                writer.Write(ctrl.CreateClass());
+            }
+            AssetDatabase.Refresh();
+        }
+
+    }
     #region 解析方法
     public static void AddTag(string tag)
     {
