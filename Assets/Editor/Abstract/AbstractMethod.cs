@@ -1,6 +1,9 @@
 ﻿using System.Text;
 using System.Collections.Generic;
 
+/// <summary>
+/// 方法抽象类
+/// </summary>
 public abstract class AbstractMethod
 {
     /// <summary>

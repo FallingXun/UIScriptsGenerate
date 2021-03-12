@@ -10,6 +10,9 @@ public class ClassBase : AbstractClass
     protected List<AbstractMethod> m_MethodList = new List<AbstractMethod>();
     protected string m_ClassStr = "";
 
+    /// <summary>
+    /// 是否合法，表明当前对象是否能正确使用
+    /// </summary>
     public bool IsLegal
     {
         get
@@ -18,6 +21,9 @@ public class ClassBase : AbstractClass
         }
     }
 
+    /// <summary>
+    /// 类名
+    /// </summary>
     public string ClassName
     {
         get
@@ -26,6 +32,9 @@ public class ClassBase : AbstractClass
         }
     }
 
+    /// <summary>
+    /// 类文本
+    /// </summary>
     public string ClassStr
     {
         get
