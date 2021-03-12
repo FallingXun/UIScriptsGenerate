@@ -2,30 +2,86 @@
 using System.Collections.Generic;
 using UnityEditor;
 
-public abstract class AbstractClassBase : Editor
+public class ClassBase : AbstractClass
 {
-    public abstract List<string> GetUsingNamespace();
+    protected string m_ClassName = "";
+    protected bool m_Legal = false;
+    protected List<AbstractField> m_FieldList = new List<AbstractField>();
+    protected List<AbstractMethod> m_MethodList = new List<AbstractMethod>();
+    protected string m_ClassStr = "";
 
-    public abstract string GetAccessModifier();
+    public bool IsLegal
+    {
+        get
+        {
+            return m_Legal;
+        }
+    }
 
-    public abstract string GetDeclarationModifier();
+    public string ClassName
+    {
+        get
+        {
+            return m_ClassName;
+        }
+    }
 
-    public abstract string GetClassName();
+    public string ClassStr
+    {
+        get
+        {
+            return m_ClassStr;
+        }
+    }
 
-    public abstract string GetParentClass();
 
-    public abstract AbstractMethodBase GetConstructedFunction();
+    #region 基类方法
+    protected override string GetAccessModifier()
+    {
+        return null;
+    }
 
-    public abstract List<AbstractFieldBase> GetClassFields();
+    protected override List<AbstractField> GetClassFields()
+    {
+        return m_FieldList;
+    }
 
-    public abstract List<AbstractMethodBase> GetClassMethods();
+    protected override List<AbstractMethod> GetClassMethods()
+    {
+        return null;
+    }
 
-    public virtual string UpdateClass(string oldClass)
+    protected override string GetClassName()
+    {
+        return null;
+    }
+
+    protected override AbstractMethod GetConstructedFunction()
+    {
+        return null;
+    }
+
+    protected override string GetDeclarationModifier()
+    {
+        return null;
+    }
+
+    protected override string GetParentClass()
+    {
+        return null;
+    }
+
+    protected override List<string> GetUsingNamespace()
+    {
+        return null;
+    }
+
+    public override string UpdateClass(string oldClass)
     {
         return oldClass.Replace(Const.Sign_Fields, CombineFields()).Replace(Const.Sign_Methods, CombineMethod());
     }
 
-    public virtual string CreateClass()
+    public override string CreateClass()
     {
         StringBuilder builder = new StringBuilder();
 
@@ -43,7 +99,7 @@ public abstract class AbstractClassBase : Editor
         var access = GetAccessModifier();
         if (string.IsNullOrEmpty(access))
         {
-            access = "public";
+            access = Const.Access_Public;
         }
         builder.AppendFormat(format, access);
 
@@ -98,11 +154,12 @@ public abstract class AbstractClassBase : Editor
             string fieldFormat = "    {0}";
             for (int i = 0; i < fields.Count; i++)
             {
-                builder.AppendLine(string.Format(fieldFormat, fields[i].ToString()));
+                builder.AppendLine(string.Format(fieldFormat, fields[i].GetValue()));
             }
         }
         // 添加后续插入标识
-        builder.AppendLine(Const.Sign_Fields); return builder.ToString();
+        builder.AppendLine(Const.Sign_Fields);
+        return builder.ToString();
     }
 
     /// <summary>
@@ -115,7 +172,7 @@ public abstract class AbstractClassBase : Editor
         var construct = GetConstructedFunction();
         if (construct != null)
         {
-            builder.Append(construct.ToString());
+            builder.Append(construct.GetValue());
         }
         return builder.ToString();
     }
@@ -132,7 +189,7 @@ public abstract class AbstractClassBase : Editor
         {
             for (int i = 0; i < methods.Count; i++)
             {
-                builder.Append(methods[i].ToString());
+                builder.Append(methods[i].GetValue());
                 builder.AppendLine();
             }
         }
@@ -140,4 +197,6 @@ public abstract class AbstractClassBase : Editor
         builder.AppendLine(Const.Sign_Methods);
         return builder.ToString();
     }
+
+    #endregion
 }

@@ -157,12 +157,29 @@ public class HierarchyEditor : Editor
             }
             AssetDatabase.Refresh();
         }
+
+        UpdateUIConstClass();
     }
 
     [MenuItem("GameObject/UI脚本/CtrlBase/更新脚本", false, 0)]
     public static void UpdateCtrlClass()
     {
         UICtrlBaseUpdate ctrl = new UICtrlBaseUpdate(Selection.activeGameObject);
+        if (ctrl.IsLegal)
+        {
+            FileInfo file = UIScriptsHelper.FindClassFileInfo(ctrl.ClassName);
+            using (StreamWriter writer = new StreamWriter(file.FullName, false, Encoding.UTF8))
+            {
+                writer.Write(ctrl.UpdateClass(ctrl.ClassStr));
+            }
+            AssetDatabase.Refresh();
+        }
+    }
+
+    [MenuItem("GameObject/UI脚本/UIConst/添加UI常量", false, 0)]
+    public static void UpdateUIConstClass()
+    {
+        UIConstUpdate ctrl = new UIConstUpdate(Selection.activeGameObject);
         if (ctrl.IsLegal)
         {
             FileInfo file = UIScriptsHelper.FindClassFileInfo(ctrl.ClassName);

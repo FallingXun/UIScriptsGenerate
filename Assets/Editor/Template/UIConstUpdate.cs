@@ -7,9 +7,9 @@ using System.Reflection;
 using System;
 using System.IO;
 
-public class UICtrlBaseUpdate : ClassBase
+public class UIConstUpdate : ClassBase
 {
-    public UICtrlBaseUpdate(GameObject root)
+    public UIConstUpdate(GameObject root)
     {
         if (root == null)
         {
@@ -31,10 +31,10 @@ public class UICtrlBaseUpdate : ClassBase
             return;
         }
 
-        m_ClassName = root.name + Const.Str_UICtrlEndType;
+        m_ClassName = typeof(UIConst).Name;
 
         // 反射获取类信息
-        Assembly assembly = typeof(UICtrlBase).Assembly;
+        Assembly assembly = typeof(UIConst).Assembly;
         if (assembly == null)
         {
             return;
@@ -62,41 +62,25 @@ public class UICtrlBaseUpdate : ClassBase
             Debug.LogErrorFormat("读取 {0} 类文件内容失败!", m_ClassName);
             return;
         }
- 
-        foreach (var tf in tfs)
+
+        string fieldName = string.Format("UI{0}", root.name);
+        string defaultValue = string.Format("\"{0}\"", root.name);
+        FieldInfo fieldInfo = classType.GetField(fieldName);
+        if (fieldInfo != null)
         {
-            TagData data = UIScriptsHelper.ParseName(tf.gameObject);
-            if (data.tags == null || data.tags.Count <= 0)
-            {
-                continue;
-            }
-            foreach (var tag in data.tags)
-            {
-                var t = UIScriptsHelper.GetTagType(tag);
-                if (t == null)
-                {
-                    continue;
-                }
-                string fieldType = t.Name;
-                string fieldName = UIScriptsHelper.GetFieldName(data.name, tag);
-                FieldInfo fieldInfo = classType.GetField(fieldName);
-                if (fieldInfo != null)
-                {
-                    continue;
-                }
-                FieldBase field = new FieldBase(Const.Access_Public, "", fieldName, fieldType, "");
-                m_FieldList.Add(field);
-            }
+            return;
         }
+        FieldBase field = new FieldBase(Const.Access_Public, Const.Declaration_Const, fieldName, Const.Return_String, defaultValue);
+        m_FieldList.Add(field);
 
         m_Legal = true;
     }
+
 
     #region 基类方法
     protected override List<AbstractField> GetClassFields()
     {
         return m_FieldList;
     }
-
     #endregion
 }

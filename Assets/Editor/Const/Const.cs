@@ -33,6 +33,17 @@ public class Const
     public const string Access_Protected = "protected";
     public const string Access_Internal = "internal";
 
+    public const string Declaration_Const = "const";
+    public const string Declaration_Static = "static";
+    public const string Declaration_Virtual = "virtual";
+    public const string Declaration_Override = "override";
+    public const string Declaration_Abstract = "abstract";
+
+    public const string Return_Int = "int";
+    public const string Return_Float = "float";
+    public const string Return_String = "string";
+    public const string Return_Void = "void";
+
     public const string Namespace_System_Collections = "System.Collections";
     public const string Namespace_System_Collections_Generic = "System.Collections.Generic";
     public const string Namespace_UnityEngine = "UnityEngine";

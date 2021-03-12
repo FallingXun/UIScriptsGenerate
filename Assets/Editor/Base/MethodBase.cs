@@ -1,64 +1,56 @@
-﻿using System.Text;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using System.Text;
 
-public abstract class AbstractMethodBase
+public class MethodBase : AbstractMethod
 {
-    /// <summary>
-    /// 访问修饰符
-    /// </summary>
-    /// <returns></returns>
-    public abstract string GetAccessModifier();
-
-    /// <summary>
-    /// 声明修饰符
-    /// </summary>
-    /// <returns></returns>
-    public abstract string GetDeclarationModifier();
-
-    /// <summary>
-    /// 返回类型
-    /// </summary>
-    /// <returns></returns>
-    public abstract string GetReturnType();
-
-    /// <summary>
-    /// 方法名
-    /// </summary>
-    /// <returns></returns>
-    public abstract string GetMethodName();
-
-    /// <summary>
-    /// 泛型类型（未实现）
-    /// </summary>
-    /// <returns></returns>
-    public abstract string GetGenericity();
-
-    /// <summary>
-    /// 参数列表
-    /// </summary>
-    /// <returns></returns>
-    public abstract List<AbstractParameterBase> GetMethodParameters();
-
-    /// <summary>
-    /// 父类参数值列表
-    /// </summary>
-    /// <returns></returns>
-    public abstract List<string> GetParentParameterValues();
-
-    /// <summary>
-    /// 泛型限定（未实现）
-    /// </summary>
-    /// <returns></returns>
-    public abstract string GetGenericityLimited();
-
-    public abstract List<string> GetMethodBody();
-
-    protected virtual string GetPrefixSpace()
+    protected override string GetAccessModifier()
     {
-        return "";
+        throw new System.NotImplementedException();
     }
 
-    public override string ToString()
+    protected override string GetDeclarationModifier()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override string GetGenericity()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override string GetGenericityLimited()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override List<string> GetMethodBody()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override string GetMethodName()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override List<AbstractParameter> GetMethodParameters()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override List<string> GetParentParameterValues()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override string GetReturnType()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override string GetValue()
     {
         StringBuilder builder = new StringBuilder();
         string format = "{0} ";
@@ -80,7 +72,7 @@ public abstract class AbstractMethodBase
         var returnType = GetReturnType();
         if (string.IsNullOrEmpty(returnType))
         {
-            returnType = "void";
+            returnType = Const.Return_Void;
         }
         builder.AppendFormat(format, returnType);
 
@@ -92,7 +84,7 @@ public abstract class AbstractMethodBase
         {
             for (int i = 0; i < parameters.Count; i++)
             {
-                builder.Append(parameters[i].ToString());
+                builder.Append(parameters[i].GetValue());
                 if (i < parameters.Count - 1)
                 {
                     builder.AppendFormat(format, ",");

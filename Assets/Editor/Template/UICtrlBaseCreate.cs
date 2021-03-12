@@ -4,29 +4,8 @@ using UnityEngine;
 using System.Text;
 using UnityEditor;
 
-public class UICtrlBaseCreate : AbstractClassBase
+public class UICtrlBaseCreate : ClassBase
 {
-    private string m_ClassName = "";
-    private bool m_Legal = false;
-    private List<AbstractFieldBase> m_FileList = new List<AbstractFieldBase>();
-
-    public bool IsLegal
-    {
-        get
-        {
-            return m_Legal;
-        }
-    }
-
-    public string ClassName
-    {
-        get
-        {
-            return m_ClassName;
-        }
-    }
-
-
     public UICtrlBaseCreate(GameObject root)
     {
         if (root == null)
@@ -65,51 +44,37 @@ public class UICtrlBaseCreate : AbstractClassBase
                 }
                 string fieldType = t.Name;
                 string fieldName = UIScriptsHelper.GetFieldName(data.name, tag);
-                FieldClass field = new FieldClass(Const.Access_Public, "", fieldName, fieldType, "");
-                m_FileList.Add(field);
+                FieldBase field = new FieldBase(Const.Access_Public, "", fieldName, fieldType, "");
+                m_FieldList.Add(field);
             }
         }
+
         m_Legal = true;
     }
 
     #region 基类方法
-    public override string GetAccessModifier()
+    protected override string GetAccessModifier()
     {
         return Const.Access_Public;
 
     }
 
-    public override List<AbstractFieldBase> GetClassFields()
+    protected override List<AbstractField> GetClassFields()
     {
-        return m_FileList;
+        return m_FieldList;
     }
 
-    public override List<AbstractMethodBase> GetClassMethods()
-    {
-        return null;
-    }
-
-    public override string GetClassName()
+    protected override string GetClassName()
     {
         return m_ClassName;
     }
 
-    public override AbstractMethodBase GetConstructedFunction()
-    {
-        return null;
-    }
-
-    public override string GetDeclarationModifier()
-    {
-        return "";
-    }
-
-    public override string GetParentClass()
+    protected override string GetParentClass()
     {
         return Const.Class_UICtrlBase;
     }
 
-    public override List<string> GetUsingNamespace()
+    protected override List<string> GetUsingNamespace()
     {
         List<string> l = new List<string>()
         {
