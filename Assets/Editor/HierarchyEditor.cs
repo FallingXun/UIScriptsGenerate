@@ -222,6 +222,21 @@ public class HierarchyEditor : Editor
         }
 
     }
+
+
+    [MenuItem("GameObject/UI设置/设置UI组件挂到Inspector", false, 0)]
+    public static void SetUIToInspector()
+    {
+        var go = Selection.activeGameObject;
+        InspectorBase inspector = new UIInspectorSetting();
+        inspector.Execute(go);
+        var prefabStage = PrefabStageUtility.GetPrefabStage(go);
+        if (prefabStage != null)
+        {
+            EditorSceneManager.MarkSceneDirty(prefabStage.scene);
+        }
+    }
+
     #region 解析方法
     public static void AddTag(string tag)
     {

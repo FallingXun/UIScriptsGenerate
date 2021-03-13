@@ -114,6 +114,25 @@ public class UIScriptsHelper
         return null;
     }
 
+    /// <summary>
+    /// 根据类型获取对应对象或组件
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="tag"></param>
+    /// <returns></returns>
+    public static object GetObjectByTag(GameObject go, string tag)
+    {
+        if (tag.Equals(Const.Tag_GameObject))
+        {
+            return go;
+        }
+        var component = GetTagType(tag);
+        if (component != null)
+        {
+            return go.GetComponent(component);
+        }
+        return null;
+    }
 }
 
 public struct TagData

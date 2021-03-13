@@ -348,6 +348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5174821482756723448}
   - component: {fileID: 8312000583126717556}
+  - component: {fileID: 3416656480314533709}
   m_Layer: 5
   m_Name: TestScreen
   m_TagString: Untagged
@@ -399,3 +400,24 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &3416656480314533709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8380259434890408317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69995fa85b4aec6478ee13103bbb7bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Image_img: {fileID: 6432600824319396446}
+  m_Image_tf: {fileID: 3712220236277985151}
+  m_name_text: {fileID: 8530283433473092668}
+  m_name_go: {fileID: 4425859767496218837}
+  m_root_tf: {fileID: 4883112624417900600}
+  m_rt_go: {fileID: 7657755009626898554}
+  m_rt_rimg: {fileID: 3830679842660235683}
+  m_faaa_tf: {fileID: 0}
+  m_faaa_go: {fileID: 0}

@@ -4,7 +4,7 @@ using UnityEditor;
 /// <summary>
 /// 基本类抽象类
 /// </summary>
-public abstract class AbstractClass : Editor
+public abstract class AbstractClass
 {
     protected abstract List<string> GetUsingNamespace();
 
