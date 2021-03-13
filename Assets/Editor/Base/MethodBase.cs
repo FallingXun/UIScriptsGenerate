@@ -11,48 +11,28 @@ public class MethodBase : AbstractMethod
     private string m_DeclarationModifier = "";
     private string m_Genericity = "";
     private string m_GenericityLimited = "";
+    private string m_Annotation = "";
     private List<AbstractParameter> m_ParamList;
     private List<string> m_ParentParamValueList;
     private List<string> m_MethodBody;
 
-    public MethodBase(string access, string declaration, string methodName, string returnType)
+    public MethodBase()
     {
-        m_AccessModifier = access;
-        m_DeclarationModifier = declaration;
-        m_MethodName = methodName;
-        m_ReturnType = returnType;
+
     }
 
-    public MethodBase(string access, string declaration, string methodName, string returnType, List<AbstractParameter> paramList)
-    {
-        m_AccessModifier = access;
-        m_DeclarationModifier = declaration;
-        m_MethodName = methodName;
-        m_ReturnType = returnType;
-        m_ParamList = paramList;
-    }
-
-
-    public MethodBase(string access, string declaration, string methodName, string returnType, List<string> parentParamValueList)
-    {
-        m_AccessModifier = access;
-        m_DeclarationModifier = declaration;
-        m_MethodName = methodName;
-        m_ReturnType = returnType;
-        m_ParentParamValueList = parentParamValueList;
-    }
-
-    public MethodBase(string access, string declaration, string methodName, string returnType, List<AbstractParameter> paramList, List<string> parentParamValueList)
-    {
-        m_AccessModifier = access;
-        m_DeclarationModifier = declaration;
-        m_MethodName = methodName;
-        m_ReturnType = returnType;
-        m_ParamList = paramList;
-        m_ParentParamValueList = parentParamValueList;
-    }
-
-    public MethodBase(string access, string declaration, string methodName, string returnType, List<AbstractParameter> paramList, List<string> parentParamValueList, List<string> methodBody)
+    /// <summary>
+    /// 方法
+    /// </summary>
+    /// <param name="access">访问修饰符</param>
+    /// <param name="declaration">声明修饰符</param>
+    /// <param name="methodName">方法名</param>
+    /// <param name="returnType">返回类型</param>
+    /// <param name="annotation">注释文本</param>
+    /// <param name="paramList">参数列表</param>
+    /// <param name="parentParamValueList">父类参数值</param>
+    /// <param name="methodBody">方法内容</param>
+    public MethodBase(string access, string declaration, string methodName, string returnType, string annotation, List<AbstractParameter> paramList, List<string> parentParamValueList, List<string> methodBody)
     {
         m_AccessModifier = access;
         m_DeclarationModifier = declaration;
@@ -61,6 +41,95 @@ public class MethodBase : AbstractMethod
         m_ParamList = paramList;
         m_ParentParamValueList = parentParamValueList;
         m_MethodBody = methodBody;
+        m_Annotation = annotation;
+    }
+
+    /// <summary>
+    /// 访问修饰符
+    /// </summary>
+    /// <param name="access"></param>
+    /// <returns></returns>
+    public MethodBase SetAccess(string access)
+    {
+        m_AccessModifier = access;
+        return this;
+    }
+
+    /// <summary>
+    /// 声明修饰符
+    /// </summary>
+    /// <param name="declaration"></param>
+    /// <returns></returns>
+    public MethodBase SetDeclaration(string declaration)
+    {
+        m_DeclarationModifier = declaration;
+        return this;
+    }
+
+    /// <summary>
+    /// 方法名
+    /// </summary>
+    /// <param name="methodName"></param>
+    /// <returns></returns>
+    public MethodBase SetMethodName(string methodName)
+    {
+        m_MethodName = methodName;
+        return this;
+    }
+
+    /// <summary>
+    /// 返回类型
+    /// </summary>
+    /// <param name="returnType"></param>
+    /// <returns></returns>
+    public MethodBase SetReturnType(string returnType)
+    {
+        m_ReturnType = returnType;
+        return this;
+    }
+
+    /// <summary>
+    /// 注释文本
+    /// </summary>
+    /// <param name="annotation"></param>
+    /// <returns></returns>
+    public MethodBase SetAnnotation(string annotation)
+    {
+        m_Annotation = annotation;
+        return this;
+    }
+
+    /// <summary>
+    /// 参数列表
+    /// </summary>
+    /// <param name="paramList"></param>
+    /// <returns></returns>
+    public MethodBase SetParamList(List<AbstractParameter> paramList)
+    {
+        m_ParamList = paramList;
+        return this;
+    }
+
+    /// <summary>
+    /// 父类参数值
+    /// </summary>
+    /// <param name="parentParamValueList"></param>
+    /// <returns></returns>
+    public MethodBase SetParentParamValueList(List<string> parentParamValueList)
+    {
+        m_ParentParamValueList = parentParamValueList;
+        return this;
+    }
+
+    /// <summary>
+    /// 方法内容
+    /// </summary>
+    /// <param name="methodBody"></param>
+    /// <returns></returns>
+    public MethodBase SetMethodBody(List<string> methodBody)
+    {
+        m_MethodBody = methodBody;
+        return this;
     }
 
     #region 基类方法
@@ -89,6 +158,11 @@ public class MethodBase : AbstractMethod
         return m_MethodBody;
     }
 
+    protected override string GetAnnotation()
+    {
+        return m_Annotation;
+    }
+
     protected override string GetMethodName()
     {
         return m_MethodName;
@@ -113,6 +187,12 @@ public class MethodBase : AbstractMethod
     {
         StringBuilder builder = new StringBuilder();
         string format = "{0} ";
+
+        if (string.IsNullOrEmpty(GetAnnotation()) == false)
+        {
+            builder.Append(GetPrefixSpace());
+            builder.AppendLine(string.Format("// {0}", GetAnnotation()));
+        }
 
         builder.Append(GetPrefixSpace());
 

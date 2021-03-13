@@ -56,6 +56,12 @@ public abstract class AbstractMethod
 
     protected abstract List<string> GetMethodBody();
 
+    /// <summary>
+    /// 注释信息
+    /// </summary>
+    /// <returns></returns>
+    protected abstract string GetAnnotation();
+
     public abstract string GetValue();
 
     public virtual string GetPrefixSpace()
