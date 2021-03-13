@@ -28,6 +28,9 @@ public class UIScreenBaseCreate : ClassBase
             return;
         }
 
+        // 设置注释
+        SetAnnotation(Const.Str_UIAnnotation);
+
         // 命名空间
         AddNamespace(Const.Namespace_System_Collections);
         AddNamespace(Const.Namespace_System_Collections_Generic);
@@ -177,6 +180,11 @@ public class UIScreenBaseCreate : ClassBase
     protected override List<string> GetUsingNamespace()
     {
         return NamespaceList;
+    }
+
+    protected override string GetClassAnnotation()
+    {
+        return Annotation;
     }
     #endregion
 }

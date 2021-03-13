@@ -90,6 +90,18 @@ public class ClassBase : AbstractClass
         }
     }
 
+    private string m_Annotation;
+    /// <summary>
+    /// 注释
+    /// </summary>
+    public string Annotation
+    {
+        get
+        {
+            return m_Annotation;
+        }
+    }
+
     #endregion
 
     #region 通用方法
@@ -156,6 +168,14 @@ public class ClassBase : AbstractClass
         m_MethodList.Add(method);
     }
 
+    /// <summary>
+    /// 添加注释
+    /// </summary>
+    /// <param name="annotation"></param>
+    protected void SetAnnotation(string annotation)
+    {
+        m_Annotation = annotation;
+    }
     #endregion
 
     #region 基类方法
@@ -199,6 +219,11 @@ public class ClassBase : AbstractClass
         return null;
     }
 
+    protected override string GetClassAnnotation()
+    {
+        return null;
+    }
+
     public override string UpdateClass(string oldClass)
     {
         oldClass = oldClass.Replace(Const.Str_NormalSpace + Const.Sign_Fields, Const.Sign_Fields);
@@ -219,6 +244,12 @@ public class ClassBase : AbstractClass
                 builder.AppendLine(string.Format("using {0};", usingNamespace[i]));
             }
             builder.AppendLine();
+        }
+
+        var annotation = GetClassAnnotation();
+        if(string.IsNullOrEmpty(annotation) == false)
+        {
+            builder.AppendLine(annotation);
         }
 
         var access = GetAccessModifier();

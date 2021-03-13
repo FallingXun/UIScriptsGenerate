@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>/// /// 功能：/// /// 作者：/// /// </summary>
 public class TestScreen : ScreenBase
 {
     private TestScreenCtrl m_Ctrl;

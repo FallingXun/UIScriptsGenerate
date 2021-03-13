@@ -81,6 +81,7 @@ public class Const
     public const string Str_UIMethod_RegisterUI = "RegisterUI"; 
     public const string Str_UIMethod_RegisterFevent = "RegisterFevent ";
 
+    public const string Str_UIAnnotation = "/// <summary>\r/// \r/// 功能：\r/// \r/// 作者：\r/// \r/// </summary>";
 
     public const string Symbol_Split = "|";
     public const string Symbol_Combine = "_";

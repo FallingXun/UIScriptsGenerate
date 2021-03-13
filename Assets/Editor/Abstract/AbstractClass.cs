@@ -51,6 +51,12 @@ public abstract class AbstractClass : Editor
     protected abstract List<AbstractMethod> GetClassMethods();
 
     /// <summary>
+    /// 注释信息
+    /// </summary>
+    /// <returns></returns>
+    protected abstract string GetClassAnnotation();
+
+    /// <summary>
     /// 更新类文件
     /// </summary>
     /// <param name="oldClass">当前类文件内容</param>
