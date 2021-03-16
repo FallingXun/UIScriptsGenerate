@@ -175,11 +175,42 @@ public class HierarchyEditor : Editor
             AssetDatabase.Refresh();
         }
     }
-
-    [MenuItem("GameObject/UI脚本/UIConst/添加UI常量", false, 0)]
-    public static void UpdateUIConstClass()
+    [MenuItem("GameObject/UI脚本/SubCtrlBase/生成脚本", false, 0)]
+    public static void CreateSubCtrlClass()
     {
-        UIConstUpdate ctrl = new UIConstUpdate(Selection.activeGameObject);
+        UISubCtrlBaseCreate ctrl = new UISubCtrlBaseCreate(Selection.activeGameObject);
+        if (ctrl.IsLegal)
+        {
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+            string scriptName = ctrl.ClassName;
+            string directoryPath = folder;
+            string filePath = directoryPath + "/" + scriptName + ".cs";
+            if (File.Exists(filePath))
+            {
+                Debug.Log(scriptName + "已存在，路径为：" + filePath);
+                return;
+            }
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+            {
+                writer.Write(ctrl.CreateClass());
+            }
+            AssetDatabase.Refresh();
+        }
+
+    }
+
+    [MenuItem("GameObject/UI脚本/SubCtrlBase/更新脚本", false, 0)]
+    public static void UpdateSubCtrlClass()
+    {
+        UISubCtrlBaseUpdate ctrl = new UISubCtrlBaseUpdate(Selection.activeGameObject);
         if (ctrl.IsLegal)
         {
             FileInfo file = UIScriptsHelper.FindClassFileInfo(ctrl.ClassName);
@@ -190,6 +221,7 @@ public class HierarchyEditor : Editor
             AssetDatabase.Refresh();
         }
     }
+
 
     [MenuItem("GameObject/UI脚本/ScreenBase/生成脚本", false, 0)]
     public static void CreateScreenClass()
@@ -221,6 +253,53 @@ public class HierarchyEditor : Editor
             AssetDatabase.Refresh();
         }
 
+    }
+
+    [MenuItem("GameObject/UI脚本/SubScreenBase/生成脚本", false, 0)]
+    public static void CreateSubScreenClass()
+    {
+        UISubScreenBaseCreate ctrl = new UISubScreenBaseCreate(Selection.activeGameObject);
+        if (ctrl.IsLegal)
+        {
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+            string scriptName = ctrl.ClassName;
+            string directoryPath = folder;
+            string filePath = directoryPath + "/" + scriptName + ".cs";
+            if (File.Exists(filePath))
+            {
+                Debug.Log(scriptName + "已存在，路径为：" + filePath);
+                return;
+            }
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+            {
+                writer.Write(ctrl.CreateClass());
+            }
+            AssetDatabase.Refresh();
+        }
+
+    }
+
+    [MenuItem("GameObject/UI脚本/UIConst/添加UI常量", false, 0)]
+    public static void UpdateUIConstClass()
+    {
+        UIConstUpdate ctrl = new UIConstUpdate(Selection.activeGameObject);
+        if (ctrl.IsLegal)
+        {
+            FileInfo file = UIScriptsHelper.FindClassFileInfo(ctrl.ClassName);
+            using (StreamWriter writer = new StreamWriter(file.FullName, false, Encoding.UTF8))
+            {
+                writer.Write(ctrl.UpdateClass(ctrl.ClassStr));
+            }
+            AssetDatabase.Refresh();
+        }
     }
 
 

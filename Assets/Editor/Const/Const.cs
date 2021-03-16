@@ -75,11 +75,12 @@ public class Const
 
     public const string Str_UIMethod_OnLoadSuccess = "OnLoadSuccess";
     public const string Str_UIMethod_OnInit = "OnInit";
+    public const string Str_UIMethod_Init = "Init";
     public const string Str_UIMethod_Dispose = "Dispose";
     public const string Str_UIMethod_OnClose = "OnClose";
     public const string Str_UIMethod_OnClickMaskArea = "OnClickMaskArea"; 
     public const string Str_UIMethod_RegisterUI = "RegisterUI"; 
-    public const string Str_UIMethod_RegisterFevent = "RegisterFevent ";
+    public const string Str_UIMethod_RegisterFevent = "RegisterFevent";
 
     public const string Str_UIAnnotation = "/// <summary>\r/// \r/// 功能：\r/// \r/// 作者：\r/// \r/// </summary>";
 

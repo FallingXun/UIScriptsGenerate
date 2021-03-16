@@ -13,8 +13,6 @@ public class TestScreenCtrl : UICtrlBase
     public Transform m_root_tf;
     public GameObject m_rt_go;
     public RawImage m_rt_rimg;
-    public Transform m_faaa_tf;
-    public GameObject m_faaa_go;
     /* 变量自动生成位置，请勿删除此行 */
 
 

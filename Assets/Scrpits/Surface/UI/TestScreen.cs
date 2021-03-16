@@ -24,7 +24,7 @@ public class TestScreen : ScreenBase
         // 注册UI监听
         RegisterUI();
         // 注册事件监听
-        RegisterFevent ();
+        RegisterFevent();
     }
 
     // UI初始化，每次调用OpenUI都会执行
@@ -42,6 +42,8 @@ public class TestScreen : ScreenBase
     // UI关闭
     public override void OnClose()
     {
+        // 先执行自身Close逻辑，再执行base.Close
+        
         base.OnClose();
     }
 
@@ -58,7 +60,7 @@ public class TestScreen : ScreenBase
     }
 
     // 消息事件注册
-    private void RegisterFevent ()
+    private void RegisterFevent()
     {
     
     }

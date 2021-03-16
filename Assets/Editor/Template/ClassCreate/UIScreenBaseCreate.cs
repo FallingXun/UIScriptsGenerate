@@ -107,6 +107,8 @@ public class UIScreenBaseCreate : ClassBase
         AddMethod(dispose);
 
         List<string> onCloseBody = new List<string>();
+        onCloseBody.Add(space + "// 先执行自身Close逻辑，再执行base.Close");
+        onCloseBody.Add(space );
         onCloseBody.Add(string.Format(Const.Str_MethodBase, Const.Str_UIMethod_OnClose));
         MethodBase onClose = new MethodBase();
         onClose.SetAccess(Const.Access_Public)
