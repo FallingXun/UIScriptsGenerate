@@ -17,6 +17,12 @@ public class Const
         { Tag_RawImage,typeof(RawImage) },
         { Tag_Button,typeof(Button) },
         { Tag_Slider,typeof(Slider) },
+        { Tag_Toggle,typeof(Toggle) },
+        { Tag_Dropdown,typeof(Dropdown) },
+        { Tag_ScrollRect,typeof(ScrollRect) },
+        { Tag_InputField,typeof(InputField) },
+        { Tag_ReusableLayoutGroup,typeof(ReusableLayoutGroup) },
+        { Tag_Item,typeof(MonoBehaviour) },
     };
 
     public const string Tag_GameObject = "go";
@@ -27,6 +33,12 @@ public class Const
     public const string Tag_RawImage = "rimg";
     public const string Tag_Button = "btn";
     public const string Tag_Slider = "sd";
+    public const string Tag_Toggle = "tg";
+    public const string Tag_Dropdown = "dd";
+    public const string Tag_ScrollRect = "sr";
+    public const string Tag_InputField = "input";
+    public const string Tag_ReusableLayoutGroup = "rlg";
+    public const string Tag_Item = "item";
 
     public const string Access_Public = "public";
     public const string Access_Private = "private";

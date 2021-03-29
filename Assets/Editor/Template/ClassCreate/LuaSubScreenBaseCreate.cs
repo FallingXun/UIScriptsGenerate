@@ -15,11 +15,7 @@ public class LuaSubScreenBaseCreate : LuaClassBase
             Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", Const.Str_UISubScreenEndType);
             return;
         }
-        Transform[] tfs = root.GetComponentsInChildren<Transform>(true);
-        if (tfs == null || tfs.Length <= 0)
-        {
-            return;
-        }
+
         string space = "    ";
 
         // 设置注释

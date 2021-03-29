@@ -8,9 +8,9 @@ public class LuaBindItem
 {
     public string variableName;
 
-    public GameObject go;
+    public string bindTypeTag;
 
-    public Type bindType;
+    public GameObject go;
 }
 
 

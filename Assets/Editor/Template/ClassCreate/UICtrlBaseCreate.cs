@@ -22,11 +22,6 @@ public class UICtrlBaseCreate : ClassBase
             Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", Const.Str_UIScreenEndType);
             return;
         }
-        Transform[] tfs = root.GetComponentsInChildren<Transform>(true);
-        if (tfs == null || tfs.Length <= 0)
-        {
-            return;
-        }
 
         AddNamespace(Const.Namespace_System_Collections);
         AddNamespace(Const.Namespace_System_Collections_Generic);
@@ -35,31 +30,13 @@ public class UICtrlBaseCreate : ClassBase
         AddNamespace(Const.Namespace_TMPro);
 
         SetClassName(root.name + Const.Str_UICtrlEndType);
-        foreach (var tf in tfs)
-        {
-            if (PrefabUtility.IsPartOfAnyPrefab(tf) /*&& PrefabUtility.IsAnyPrefabInstanceRoot(tf.gameObject) == false*/)
-            {
-                continue;
-            }
-            TagData data = UIScriptsHelper.ParseName(tf.gameObject);
-            if (data.tags == null || data.tags.Count <= 0)
-            {
-                continue;
-            }
-            foreach (var tag in data.tags)
-            {
-                var t = UIScriptsHelper.GetTagType(tag);
-                if (t == null)
-                {
-                    continue;
-                }
-                string fieldType = t.Name;
-                string fieldName = UIScriptsHelper.GetFieldName(data.name, tag);
-                FieldBase field = new FieldBase(Const.Access_Public, "", fieldName, fieldType, "");
-                AddField(field);
-            }
-        }
 
+        // 解析变量
+        if(ParseField(root) == false)
+        {
+            return;
+        }
+       
         SetLegal(true);
     }
 

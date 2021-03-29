@@ -126,6 +126,90 @@ public class HierarchyEditor : Editor
     }
     #endregion
 
+    #region Toggle
+    [MenuItem("GameObject/UI标签/Toggle/添加标签", false, 0)]
+    public static void AddTag_Toggle()
+    {
+        AddTag(Const.Tag_Toggle);
+    }
+
+    [MenuItem("GameObject/UI标签/Toggle/移除标签", false, 0)]
+    public static void RemoveTag_Toggle()
+    {
+        RemoveTag(Const.Tag_Toggle);
+    }
+    #endregion
+
+    #region Dropdown
+    [MenuItem("GameObject/UI标签/Dropdown/添加标签", false, 0)]
+    public static void AddTag_Dropdown()
+    {
+        AddTag(Const.Tag_Dropdown);
+    }
+
+    [MenuItem("GameObject/UI标签/Dropdown/移除标签", false, 0)]
+    public static void RemoveTag_Dropdown()
+    {
+        RemoveTag(Const.Tag_Dropdown);
+    }
+    #endregion
+
+    #region ScrollRect
+    [MenuItem("GameObject/UI标签/ScrollRect/添加标签", false, 0)]
+    public static void AddTag_ScrollRect()
+    {
+        AddTag(Const.Tag_ScrollRect);
+    }
+
+    [MenuItem("GameObject/UI标签/ScrollRect/移除标签", false, 0)]
+    public static void RemoveTag_ScrollRect()
+    {
+        RemoveTag(Const.Tag_ScrollRect);
+    }
+    #endregion
+
+    #region InputField
+    [MenuItem("GameObject/UI标签/InputField/添加标签", false, 0)]
+    public static void AddTag_InputField()
+    {
+        AddTag(Const.Tag_InputField);
+    }
+
+    [MenuItem("GameObject/UI标签/InputField/移除标签", false, 0)]
+    public static void RemoveTag_InputField()
+    {
+        RemoveTag(Const.Tag_InputField);
+    }
+    #endregion
+
+    #region ReusableLayoutGroup
+    [MenuItem("GameObject/UI标签/ReusableLayoutGroup/添加标签", false, 0)]
+    public static void AddTag_ReusableLayoutGroup()
+    {
+        AddTag(Const.Tag_ReusableLayoutGroup);
+    }
+
+    [MenuItem("GameObject/UI标签/ReusableLayoutGroup/移除标签", false, 0)]
+    public static void RemoveTag_ReusableLayoutGroup()
+    {
+        RemoveTag(Const.Tag_ReusableLayoutGroup);
+    }
+    #endregion
+
+    #region Item
+    [MenuItem("GameObject/UI标签/Item/添加标签", false, 0)]
+    public static void AddTag_Item()
+    {
+        AddTag(Const.Tag_Item);
+    }
+
+    [MenuItem("GameObject/UI标签/Item/移除标签", false, 0)]
+    public static void RemoveTag_Item()
+    {
+        RemoveTag(Const.Tag_Item);
+    }
+    #endregion
+
     #endregion
 
     [MenuItem("GameObject/UI脚本/CtrlBase/生成脚本", false, 0)]
@@ -164,7 +248,12 @@ public class HierarchyEditor : Editor
     [MenuItem("GameObject/UI脚本/CtrlBase/更新脚本", false, 0)]
     public static void UpdateCtrlClass()
     {
-        UICtrlBaseUpdate ctrl = new UICtrlBaseUpdate(Selection.activeGameObject);
+        UpdateCtrlClass(Selection.activeGameObject);
+    }
+
+    public static void UpdateCtrlClass(GameObject go )
+    {
+        UICtrlBaseUpdate ctrl = new UICtrlBaseUpdate(go);
         if (ctrl.IsLegal)
         {
             FileInfo file = UIScriptsHelper.FindClassFileInfo(ctrl.ClassName);
@@ -175,6 +264,7 @@ public class HierarchyEditor : Editor
             AssetDatabase.Refresh();
         }
     }
+
     [MenuItem("GameObject/UI脚本/SubCtrlBase/生成脚本", false, 0)]
     public static void CreateSubCtrlClass()
     {
@@ -210,7 +300,12 @@ public class HierarchyEditor : Editor
     [MenuItem("GameObject/UI脚本/SubCtrlBase/更新脚本", false, 0)]
     public static void UpdateSubCtrlClass()
     {
-        UISubCtrlBaseUpdate ctrl = new UISubCtrlBaseUpdate(Selection.activeGameObject);
+        UpdateSubCtrlClass(Selection.activeGameObject);
+    }
+
+    public static void UpdateSubCtrlClass(GameObject go)
+    {
+        UISubCtrlBaseUpdate ctrl = new UISubCtrlBaseUpdate(go);
         if (ctrl.IsLegal)
         {
             FileInfo file = UIScriptsHelper.FindClassFileInfo(ctrl.ClassName);
@@ -221,7 +316,6 @@ public class HierarchyEditor : Editor
             AssetDatabase.Refresh();
         }
     }
-
 
     [MenuItem("GameObject/UI脚本/ScreenBase/生成脚本", false, 0)]
     public static void CreateScreenClass()
@@ -371,6 +465,11 @@ public class HierarchyEditor : Editor
     public static void SetUIToInspector()
     {
         var go = Selection.activeGameObject;
+        SetUIToInspector(go);
+    }
+
+    public static void SetUIToInspector(GameObject go)
+    {
         InspectorBase inspector = new UIInspectorSetting();
         inspector.Execute(go);
         var prefabStage = PrefabStageUtility.GetPrefabStage(go);
@@ -384,6 +483,11 @@ public class HierarchyEditor : Editor
     public static void SetLuaUIToInspector()
     {
         var go = Selection.activeGameObject;
+        SetLuaUIToInspector(go);
+    }
+
+    public static void SetLuaUIToInspector(GameObject go)
+    {
         InspectorBase inspector = new LuaUIInspectorSetting();
         inspector.Execute(go);
         var prefabStage = PrefabStageUtility.GetPrefabStage(go);
@@ -392,6 +496,7 @@ public class HierarchyEditor : Editor
             EditorSceneManager.MarkSceneDirty(prefabStage.scene);
         }
     }
+
     #region 解析方法
     public static void AddTag(string tag)
     {

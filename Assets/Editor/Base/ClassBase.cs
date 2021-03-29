@@ -1,6 +1,10 @@
 ﻿using System.Text;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
+using System.Reflection;
+using System.IO;
+using System;
 
 public class ClassBase : AbstractClass
 {
@@ -176,6 +180,121 @@ public class ClassBase : AbstractClass
     {
         m_Annotation = annotation;
     }
+
+    /// <summary>
+    /// 解析子节点C#变量
+    /// </summary>
+    /// <param name="root"></param>
+    protected bool ParseField(GameObject root)
+    {
+        Transform[] tfs = root.GetComponentsInChildren<Transform>(true);
+        if (tfs == null || tfs.Length <= 0)
+        {
+            return false;
+        }
+
+        foreach (var tf in tfs)
+        {
+            if (UIScriptsHelper.IsIgnored(tf.gameObject))
+            {
+                continue;
+            }
+            TagData data = UIScriptsHelper.ParseName(tf.gameObject);
+            if (data.tags == null || data.tags.Count <= 0)
+            {
+                continue;
+            }
+            foreach (var tag in data.tags)
+            {
+                Type type = UIScriptsHelper.GetObjectTypeByTag(tf.gameObject, tag);
+                if (type == null)
+                {
+                    continue;
+                }
+                string fieldType = type.Name;
+                string fieldName = UIScriptsHelper.GetFieldName(data.name, tag);
+                FieldBase field = new FieldBase(Const.Access_Public, "", fieldName, fieldType, "");
+                AddField(field);
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// 更新子节点C#变量
+    /// </summary>
+    /// <param name="root"></param>
+    /// <returns></returns>
+    protected bool UpdateField(GameObject root)
+    {
+        Transform[] tfs = root.GetComponentsInChildren<Transform>(true);
+        if (tfs == null || tfs.Length <= 0)
+        {
+            return false;
+        }
+
+        // 反射获取类信息
+        Assembly assembly = typeof(UICtrlBase).Assembly;
+        if (assembly == null)
+        {
+            return false;
+        }
+        Type classType = assembly.GetType(ClassName);
+        if (classType == null)
+        {
+            Debug.LogErrorFormat("找不到类 {0} ，请重新生成！", ClassName);
+            return false;
+        }
+
+
+        FileInfo file = UIScriptsHelper.FindClassFileInfo(ClassName);
+        if (file == null)
+        {
+            Debug.LogErrorFormat("找不到类文件 {0}.cs ，请重新生成！", ClassName);
+            return false;
+        }
+        using (var reader = file.OpenText())
+        {
+            SetClassText(reader.ReadToEnd());
+        }
+        if (string.IsNullOrEmpty(ClassStr))
+        {
+            Debug.LogErrorFormat("读取 {0} 类文件内容失败!", ClassName);
+            return false;
+        }
+
+        foreach (var tf in tfs)
+        {
+            if (UIScriptsHelper.IsIgnored(tf.gameObject))
+            {
+                continue;
+            }
+            TagData data = UIScriptsHelper.ParseName(tf.gameObject);
+            if (data.tags == null || data.tags.Count <= 0)
+            {
+                continue;
+            }
+            foreach (var tag in data.tags)
+            {
+                Type type = UIScriptsHelper.GetObjectTypeByTag(tf.gameObject, tag);
+                if (type == null)
+                {
+                    continue;
+                }
+                string fieldType = type.Name;
+                string fieldName = UIScriptsHelper.GetFieldName(data.name, tag);
+                FieldInfo fieldInfo = classType.GetField(fieldName);
+                if (fieldInfo != null)
+                {
+                    continue;
+                }
+                FieldBase field = new FieldBase(Const.Access_Public, "", fieldName, fieldType, "");
+                AddField(field);
+            }
+        }
+
+        return true;
+    }
     #endregion
 
     #region 基类方法
@@ -247,7 +366,7 @@ public class ClassBase : AbstractClass
         }
 
         var annotation = GetClassAnnotation();
-        if(string.IsNullOrEmpty(annotation) == false)
+        if (string.IsNullOrEmpty(annotation) == false)
         {
             builder.AppendLine(annotation);
         }

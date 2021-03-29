@@ -28,12 +28,35 @@ public class LuaUIInspectorSetting : InspectorBase
             return null;
         }
 
+        TextAsset luaFile = null;
+        List<LuaBindItem> bindItems = null;
+        LuaCtrlBase ctrl = go.GetComponent<LuaCtrlBase>();
+        if (ctrl != null)
+        {
+            luaFile = ctrl.m_LuaFile;
+            bindItems = ctrl.m_LuaBindItems;
+        }
+        else
+        {
+            LuaSubCtrlBase subCtrl = go.GetComponent<LuaSubCtrlBase>();
+            if (subCtrl != null)
+            {
+                luaFile = subCtrl.m_LuaFile;
+                bindItems = subCtrl.m_LuaBindItems;
+            }
+            else
+            {
+                bindItems = new List<LuaBindItem>();
+            }
+        }
+
         // 解析预制体变量
         Dictionary<string, object> fieldsDic = new Dictionary<string, object>();
-        List<LuaBindItem> bind = new List<LuaBindItem>();
+        Dictionary<string, LuaBindItem> itemDic = new Dictionary<string, LuaBindItem>();
+
         for (int i = 0; i < tfs.Length; i++)
         {
-            if (PrefabUtility.IsPartOfAnyPrefab(tfs[i]) /*&& PrefabUtility.IsAnyPrefabInstanceRoot(tfs[i].gameObject) == false*/)
+            if (UIScriptsHelper.IsIgnored(tfs[i].gameObject))
             {
                 continue;
             }
@@ -45,46 +68,58 @@ public class LuaUIInspectorSetting : InspectorBase
             foreach (var tag in data.tags)
             {
                 string name = UIScriptsHelper.GetFieldName(data.name, tag);
-                Type type = UIScriptsHelper.GetTagType(tag);
+                //Type type = UIScriptsHelper.GetObjectTypeByTag(tfs[i].gameObject, tag);
                 LuaBindItem item = new LuaBindItem();
                 item.variableName = name;
-                item.bindType = type;
+                item.bindTypeTag = tag;
                 item.go = tfs[i].gameObject;
-                bind.Add(item);
+                itemDic[name] = item;
             }
         }
-        fieldsDic[FieldName_BindItems] = bind;
-
-        TextAsset luaFile = null;
-        LuaCtrlBase ctrl = go.GetComponent<LuaCtrlBase>();
-        if (ctrl != null)
+        foreach (var item in bindItems)
         {
-            luaFile = ctrl.m_LuaFile;
+            if (itemDic.ContainsKey(item.variableName))
+            {
+                var bind = itemDic[item.variableName];
+                if (bind.go.Equals(item.go) && bind.bindTypeTag.Equals(item.bindTypeTag))
+                {
+                    continue;
+                }
+                Debug.LogError("lua绑定的变量出现同名，请检查：" + item.variableName);
+            }
+            else
+            {
+                itemDic[item.variableName] = item;
+            }
+        }
+        bindItems.Clear();
+        foreach (var item in itemDic.Values)
+        {
+            bindItems.Add(item);
+        }
+        fieldsDic[FieldName_BindItems] = bindItems;
+
+
+        string directory = Path.Combine(Directory.GetCurrentDirectory(), LuaFilePath);
+        if (Directory.Exists(directory) == false)
+        {
+            Debug.LogError("lua脚本路径不存在，请检查：" + directory);
         }
         else
         {
-            LuaSubCtrlBase subCtrl = go.GetComponent<LuaSubCtrlBase>();
-            if (subCtrl != null)
+            string[] files = Directory.GetFiles(directory, go.name + ".lua", SearchOption.AllDirectories);
+            if (files != null && files.Length > 0)
             {
-                luaFile = subCtrl.m_LuaFile;
+                string path = files[0].Replace("\\", "/");
+                int index = path.IndexOf(LuaFilePath);
+                path = path.Substring(index, path.Length - index);
+                luaFile = AssetDatabase.LoadAssetAtPath(path, typeof(TextAsset)) as TextAsset;
+            }
+            if (luaFile != null)
+            {
+                fieldsDic[FieldName_TextAsset] = luaFile;
             }
         }
-
-        string fileName = string.Format("name:{0}", go.name);
-        string[] guids = AssetDatabase.FindAssets(fileName, new string[] { LuaFilePath });
-        if (guids != null)
-        {
-            for (int i = 0; i < guids.Length; i++)
-            {
-                string p = AssetDatabase.GUIDToAssetPath(guids[i]);
-                if (p.EndsWith(fileName))
-                {
-                    luaFile = AssetDatabase.LoadAssetAtPath(p, typeof(TextAsset)) as TextAsset;
-                    break;
-                }
-            }
-        }
-        fieldsDic[FieldName_TextAsset] = luaFile;
 
         return fieldsDic;
     }

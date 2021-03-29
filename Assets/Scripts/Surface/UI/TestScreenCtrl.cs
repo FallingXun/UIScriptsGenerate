@@ -13,9 +13,22 @@ public class TestScreenCtrl : UICtrlBase
     public Transform m_root_tf;
     public GameObject m_rt_go;
     public RawImage m_rt_rimg;
+    public TestSubScreenSubCtrl m_TestSubScreen_item;
     /* 变量自动生成位置，请勿删除此行 */
 
 
+
+
+
+
+
+
     /* 方法自动生成位置，请勿删除此行 */
+
+
+
+
+
+
 
 }

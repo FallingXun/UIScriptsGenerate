@@ -26,6 +26,50 @@ public class UIScriptsHelper
     }
 
     /// <summary>
+    /// 根据类型获取对应对象或组件
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="tag"></param>
+    /// <returns></returns>
+    public static object GetObjectByTag(GameObject go, string tag)
+    {
+        if (tag.Equals(Const.Tag_GameObject))
+        {
+            return go;
+        }
+        var component = GetTagType(tag);
+        if (component != null)
+        {
+            return go.GetComponent(component);
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 获取对象或组件的类型
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="go"></param>
+    /// <returns></returns>
+    public static Type GetObjectTypeByTag(GameObject go, string tag)
+    {
+        if (tag.Equals(Const.Tag_Item))
+        {
+            var obj = GetObjectByTag(go, tag);
+            if (obj != null)
+            {
+                return obj.GetType();
+            }
+        }
+        else
+        {
+            return GetTagType(tag);
+        }
+        return null;
+    }
+
+
+    /// <summary>
     /// 获取C#变量名
     /// </summary>
     /// <param name="baseName"></param>
@@ -114,24 +158,19 @@ public class UIScriptsHelper
         return null;
     }
 
+
     /// <summary>
-    /// 根据类型获取对应对象或组件
+    /// 是否为需要忽略的对象（嵌套预制体中）
     /// </summary>
     /// <param name="go"></param>
-    /// <param name="tag"></param>
     /// <returns></returns>
-    public static object GetObjectByTag(GameObject go, string tag)
+    public static bool IsIgnored(GameObject go)
     {
-        if (tag.Equals(Const.Tag_GameObject))
+        if (PrefabUtility.IsPartOfAnyPrefab(go) && PrefabUtility.IsAnyPrefabInstanceRoot(go) == false)
         {
-            return go;
+            return true;
         }
-        var component = GetTagType(tag);
-        if (component != null)
-        {
-            return go.GetComponent(component);
-        }
-        return null;
+        return false;
     }
 }
 

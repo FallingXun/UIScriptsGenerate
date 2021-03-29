@@ -27,7 +27,7 @@ public class UIInspectorSetting : InspectorBase
         Dictionary<string, object> fieldsDic = new Dictionary<string, object>();
         for (int i = 0; i < tfs.Length; i++)
         {
-            if (PrefabUtility.IsPartOfAnyPrefab(tfs[i]) /*&& PrefabUtility.IsAnyPrefabInstanceRoot(tfs[i].gameObject) == false*/)
+            if (UIScriptsHelper.IsIgnored(tfs[i].gameObject))
             {
                 continue;
             }

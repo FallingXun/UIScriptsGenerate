@@ -22,11 +22,6 @@ public class UIScreenBaseCreate : ClassBase
             Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", Const.Str_UIScreenEndType);
             return;
         }
-        Transform[] tfs = root.GetComponentsInChildren<Transform>(true);
-        if (tfs == null || tfs.Length <= 0)
-        {
-            return;
-        }
 
         // 设置注释
         SetAnnotation(Const.Str_UIAnnotation);
