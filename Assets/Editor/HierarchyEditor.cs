@@ -287,6 +287,70 @@ public class HierarchyEditor : Editor
 
     }
 
+    [MenuItem("GameObject/UI脚本/LuaScreenBase/生成脚本", false, 0)]
+    public static void CreateLuaScreenClass()
+    {
+        LuaScreenBaseCreate ctrl = new LuaScreenBaseCreate(Selection.activeGameObject);
+        if (ctrl.IsLegal)
+        {
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+            string scriptName = ctrl.ClassName;
+            string directoryPath = folder;
+            string filePath = directoryPath + "/" + scriptName + ".lua";
+            if (File.Exists(filePath))
+            {
+                Debug.Log(scriptName + "已存在，路径为：" + filePath);
+                return;
+            }
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+            {
+                writer.Write(ctrl.CreateClass());
+            }
+            AssetDatabase.Refresh();
+        }
+
+    }
+
+    [MenuItem("GameObject/UI脚本/LuaSubScreenBase/生成脚本", false, 0)]
+    public static void CreateLuaSubScreenClass()
+    {
+        LuaSubScreenBaseCreate ctrl = new LuaSubScreenBaseCreate(Selection.activeGameObject);
+        if (ctrl.IsLegal)
+        {
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+            string scriptName = ctrl.ClassName;
+            string directoryPath = folder;
+            string filePath = directoryPath + "/" + scriptName + ".lua";
+            if (File.Exists(filePath))
+            {
+                Debug.Log(scriptName + "已存在，路径为：" + filePath);
+                return;
+            }
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+            {
+                writer.Write(ctrl.CreateClass());
+            }
+            AssetDatabase.Refresh();
+        }
+
+    }
+
     [MenuItem("GameObject/UI脚本/UIConst/添加UI常量", false, 0)]
     public static void UpdateUIConstClass()
     {
@@ -316,6 +380,18 @@ public class HierarchyEditor : Editor
         }
     }
 
+    [MenuItem("GameObject/UI设置/设置Lua_UI组件挂到Inspector", false, 0)]
+    public static void SetLuaUIToInspector()
+    {
+        var go = Selection.activeGameObject;
+        InspectorBase inspector = new LuaUIInspectorSetting();
+        inspector.Execute(go);
+        var prefabStage = PrefabStageUtility.GetPrefabStage(go);
+        if (prefabStage != null)
+        {
+            EditorSceneManager.MarkSceneDirty(prefabStage.scene);
+        }
+    }
     #region 解析方法
     public static void AddTag(string tag)
     {

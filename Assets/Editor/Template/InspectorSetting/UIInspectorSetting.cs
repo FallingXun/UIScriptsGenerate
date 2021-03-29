@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEditor;
 
 public class UIInspectorSetting : InspectorBase
 {
@@ -26,6 +27,10 @@ public class UIInspectorSetting : InspectorBase
         Dictionary<string, object> fieldsDic = new Dictionary<string, object>();
         for (int i = 0; i < tfs.Length; i++)
         {
+            if (PrefabUtility.IsPartOfAnyPrefab(tfs[i]) /*&& PrefabUtility.IsAnyPrefabInstanceRoot(tfs[i].gameObject) == false*/)
+            {
+                continue;
+            }
             TagData data = UIScriptsHelper.ParseName(tfs[i].gameObject);
             if (data.tags == null || data.tags.Count <= 0)
             {

@@ -54,6 +54,8 @@ public class Const
 
     public const string Sign_Fields = "/* 变量自动生成位置，请勿删除此行 */";
     public const string Sign_Methods = "/* 方法自动生成位置，请勿删除此行 */";
+    public const string Sign_Lua_Fields = "-- 变量自动生成位置，请勿删除此行 --";
+    public const string Sign_Lua_Methods = "-- 方法自动生成位置，请勿删除此行 --";
 
     public const string Class_UICtrlBase = "UICtrlBase";
     public const string Class_UISubCtrlBase = "UISubCtrlBase";
@@ -81,8 +83,14 @@ public class Const
     public const string Str_UIMethod_OnClickMaskArea = "OnClickMaskArea"; 
     public const string Str_UIMethod_RegisterUI = "RegisterUI"; 
     public const string Str_UIMethod_RegisterFevent = "RegisterFevent";
+    public const string Str_UIMethod_UnRegisterFevent = "UnRegisterFevent";
+    public const string Str_UIMethod_OnSpawn = "OnSpawn";
+    public const string Str_UIMethod_OnRelease = "OnRelease";
+
 
     public const string Str_UIAnnotation = "/// <summary>\r/// \r/// 功能：\r/// \r/// 作者：\r/// \r/// </summary>";
+    public const string Str_Lua_UIAnnotation = "-- 功能：\r-- 作者：\r\r";
+
 
     public const string Symbol_Split = "|";
     public const string Symbol_Combine = "_";

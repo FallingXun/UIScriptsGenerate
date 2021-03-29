@@ -37,6 +37,10 @@ public class UICtrlBaseCreate : ClassBase
         SetClassName(root.name + Const.Str_UICtrlEndType);
         foreach (var tf in tfs)
         {
+            if (PrefabUtility.IsPartOfAnyPrefab(tf) /*&& PrefabUtility.IsAnyPrefabInstanceRoot(tf.gameObject) == false*/)
+            {
+                continue;
+            }
             TagData data = UIScriptsHelper.ParseName(tf.gameObject);
             if (data.tags == null || data.tags.Count <= 0)
             {

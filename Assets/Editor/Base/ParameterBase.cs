@@ -9,6 +9,11 @@ public class ParameterBase : AbstractParameter
     private string m_ParamName = "";
     private string m_ParamType = "";
 
+    public ParameterBase()
+    {
+
+    }
+
     public ParameterBase(string modifier, string paramName, string paramType)
     {
         m_ParamModifier = modifier;

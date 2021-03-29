@@ -71,13 +71,14 @@ public class UISubScreenBaseCreate : ClassBase
         initBody.Add(string.Format("{0}{1}();", space, Const.Str_UIMethod_RegisterUI));
         initBody.Add(space + "// 注册事件监听");
         initBody.Add(string.Format("{0}{1}();", space, Const.Str_UIMethod_RegisterFevent));
-        MethodBase loadSuccess = new MethodBase();
-        loadSuccess.SetAccess(Const.Access_Protected)
+        MethodBase init = new MethodBase();
+        init.SetAccess(Const.Access_Protected)
                     .SetDeclaration(Const.Declaration_Override)
                     .SetMethodName(Const.Str_UIMethod_Init)
                     .SetReturnType(Const.Return_Void)
-                    .SetMethodBody(initBody);
-        AddMethod(loadSuccess);
+                    .SetMethodBody(initBody)
+                    .SetAnnotation("初始化");
+        AddMethod(init);
 
 
 
@@ -88,7 +89,8 @@ public class UISubScreenBaseCreate : ClassBase
                 .SetDeclaration(Const.Declaration_Override)
                 .SetMethodName(Const.Str_UIMethod_Dispose)
                 .SetReturnType(Const.Return_Void)
-                .SetMethodBody(disposeBody);
+                .SetMethodBody(disposeBody)
+                .SetAnnotation("销毁");
         AddMethod(dispose);
 
         MethodBase registerUI = new MethodBase();

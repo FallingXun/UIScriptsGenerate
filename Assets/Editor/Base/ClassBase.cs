@@ -186,7 +186,7 @@ public class ClassBase : AbstractClass
 
     protected override List<AbstractField> GetClassFields()
     {
-        return m_FieldList;
+        return null;
     }
 
     protected override List<AbstractMethod> GetClassMethods()

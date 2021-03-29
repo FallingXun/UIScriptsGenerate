@@ -255,11 +255,12 @@ public class MethodBase : AbstractMethod
         builder.AppendLine();
         builder.AppendLine(GetPrefixSpace() + "{");
 
-        if (m_MethodBody != null && m_MethodBody.Count > 0)
+        var methodBody = GetMethodBody();
+        if (methodBody != null && methodBody.Count > 0)
         {
-            for (int i = 0; i < m_MethodBody.Count; i++)
+            for (int i = 0; i < methodBody.Count; i++)
             {
-                builder.AppendLine(GetPrefixSpace() + m_MethodBody[i]);
+                builder.AppendLine(GetPrefixSpace() + methodBody[i]);
             }
         }
         else
