@@ -20,6 +20,8 @@ public enum EUIBindItemType
 
     Scroll = 8,
 
+    Input = 9,
+
     RectTransform = 10,
 
     ReusableLayoutGroup  = 11,

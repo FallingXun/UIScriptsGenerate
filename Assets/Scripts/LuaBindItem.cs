@@ -11,6 +11,8 @@ public class LuaBindItem
     public string bindTypeTag;
 
     public GameObject go;
+
+    public EUIBindItemType bindType;
 }
 
 

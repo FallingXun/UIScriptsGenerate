@@ -10,7 +10,7 @@ using System.IO;
 
 public class HierarchyEditor : Editor
 {
-    private const string UIScriptCreatePath = "/Script/Surface/UI/";
+    public const string UIScriptCreatePath = "Assets/Script/Surface/UI/";
 
     #region 工具
 
@@ -144,13 +144,13 @@ public class HierarchyEditor : Editor
     [MenuItem("GameObject/UI标签/Dropdown/添加标签", false, 0)]
     public static void AddTag_Dropdown()
     {
-        AddTag(Const.Tag_Dropdown);
+        AddTag(Const.Tag_DropDown);
     }
 
     [MenuItem("GameObject/UI标签/Dropdown/移除标签", false, 0)]
     public static void RemoveTag_Dropdown()
     {
-        RemoveTag(Const.Tag_Dropdown);
+        RemoveTag(Const.Tag_DropDown);
     }
     #endregion
 
@@ -218,7 +218,7 @@ public class HierarchyEditor : Editor
         UICtrlBaseCreate ctrl = new UICtrlBaseCreate(Selection.activeGameObject);
         if (ctrl.IsLegal)
         {
-            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Path.Combine(Directory.GetCurrentDirectory(), UIScriptCreatePath), "") + "/";
             if (string.IsNullOrEmpty(folder))
             {
                 return;
@@ -251,7 +251,7 @@ public class HierarchyEditor : Editor
         UpdateCtrlClass(Selection.activeGameObject);
     }
 
-    public static void UpdateCtrlClass(GameObject go )
+    public static void UpdateCtrlClass(GameObject go)
     {
         UICtrlBaseUpdate ctrl = new UICtrlBaseUpdate(go);
         if (ctrl.IsLegal)
@@ -271,7 +271,7 @@ public class HierarchyEditor : Editor
         UISubCtrlBaseCreate ctrl = new UISubCtrlBaseCreate(Selection.activeGameObject);
         if (ctrl.IsLegal)
         {
-            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Path.Combine(Directory.GetCurrentDirectory(), UIScriptCreatePath), "") + "/";
             if (string.IsNullOrEmpty(folder))
             {
                 return;
@@ -323,7 +323,7 @@ public class HierarchyEditor : Editor
         UIScreenBaseCreate ctrl = new UIScreenBaseCreate(Selection.activeGameObject);
         if (ctrl.IsLegal)
         {
-            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Path.Combine(Directory.GetCurrentDirectory(), UIScriptCreatePath), "") + "/";
             if (string.IsNullOrEmpty(folder))
             {
                 return;
@@ -355,7 +355,7 @@ public class HierarchyEditor : Editor
         UISubScreenBaseCreate ctrl = new UISubScreenBaseCreate(Selection.activeGameObject);
         if (ctrl.IsLegal)
         {
-            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Path.Combine(Directory.GetCurrentDirectory(), UIScriptCreatePath), "") + "/";
             if (string.IsNullOrEmpty(folder))
             {
                 return;
@@ -387,7 +387,7 @@ public class HierarchyEditor : Editor
         LuaScreenBaseCreate ctrl = new LuaScreenBaseCreate(Selection.activeGameObject);
         if (ctrl.IsLegal)
         {
-            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Path.Combine(Directory.GetCurrentDirectory(), UIScriptCreatePath), "") + "/";
             if (string.IsNullOrEmpty(folder))
             {
                 return;
@@ -419,7 +419,7 @@ public class HierarchyEditor : Editor
         LuaSubScreenBaseCreate ctrl = new LuaSubScreenBaseCreate(Selection.activeGameObject);
         if (ctrl.IsLegal)
         {
-            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Application.dataPath + UIScriptCreatePath, "") + "/";
+            string folder = EditorUtility.OpenFolderPanel("选择脚本生成的文件夹", Path.Combine(Directory.GetCurrentDirectory(), UIScriptCreatePath), "") + "/";
             if (string.IsNullOrEmpty(folder))
             {
                 return;

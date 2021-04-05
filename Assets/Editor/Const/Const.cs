@@ -18,7 +18,7 @@ public class Const
         { Tag_Button,typeof(Button) },
         { Tag_Slider,typeof(Slider) },
         { Tag_Toggle,typeof(Toggle) },
-        { Tag_Dropdown,typeof(Dropdown) },
+        { Tag_DropDown,typeof(Dropdown) },
         { Tag_ScrollRect,typeof(ScrollRect) },
         { Tag_InputField,typeof(InputField) },
         { Tag_ReusableLayoutGroup,typeof(ReusableLayoutGroup) },
@@ -34,7 +34,7 @@ public class Const
     public const string Tag_Button = "btn";
     public const string Tag_Slider = "sd";
     public const string Tag_Toggle = "tg";
-    public const string Tag_Dropdown = "dd";
+    public const string Tag_DropDown = "dd";
     public const string Tag_ScrollRect = "sr";
     public const string Tag_InputField = "input";
     public const string Tag_ReusableLayoutGroup = "rlg";
