@@ -208,7 +208,8 @@ public class UIStyleChangeEditor : Editor
         string text = File.ReadAllText(path);
         foreach (var item in nameDic)
         {
-            string pattern = item.Key;
+            // 全字匹配
+            string pattern = string.Format("\\b{0}\\b", item.Key);
             string replace = item.Value;
             Regex reg = new Regex(pattern);
             text = reg.Replace(text, replace);

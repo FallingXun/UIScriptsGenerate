@@ -505,6 +505,10 @@ public class HierarchyEditor : Editor
         {
             foreach (var go in objs)
             {
+                if(go.transform.parent == null)
+                {
+                    continue;
+                }
                 TagData msg = UIScriptsHelper.ParseName(go);
                 if (msg.tags != null && msg.tags.Contains(tag))
                 {
@@ -532,6 +536,10 @@ public class HierarchyEditor : Editor
         {
             foreach (var go in objs)
             {
+                if (go.transform.parent == null)
+                {
+                    continue;
+                }
                 TagData msg = UIScriptsHelper.ParseName(go);
                 if (msg.tags == null)
                 {
