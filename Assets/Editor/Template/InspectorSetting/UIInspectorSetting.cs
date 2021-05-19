@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEditor;
+using ScriptsGenerate;
 
 public class UIInspectorSetting : InspectorBase
 {
@@ -27,19 +28,19 @@ public class UIInspectorSetting : InspectorBase
         Dictionary<string, object> fieldsDic = new Dictionary<string, object>();
         for (int i = 0; i < tfs.Length; i++)
         {
-            if (UIScriptsHelper.IsIgnored(tfs[i].gameObject))
+            if (ScriptsHelper.IsIgnored(tfs[i].gameObject))
             {
                 continue;
             }
-            TagData data = UIScriptsHelper.ParseName(tfs[i].gameObject);
+            TagData data = ScriptsHelper.ParseName(tfs[i].gameObject);
             if (data.tags == null || data.tags.Count <= 0)
             {
                 continue;
             }
             foreach (var tag in data.tags)
             {
-                string name = UIScriptsHelper.GetFieldName(data.name, tag);
-                object obj = UIScriptsHelper.GetObjectByTag(tfs[i].gameObject, tag);
+                string name = ScriptsHelper.GetFieldName(data.name, tag);
+                object obj = ScriptsHelper.GetObjectByTag(tfs[i].gameObject, tag);
                 fieldsDic[name] = obj;
             }
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using UnityEditor;
+using ScriptsGenerate;
 
 public class UISubScreenBaseCreate : ClassBase
 {
@@ -12,9 +13,9 @@ public class UISubScreenBaseCreate : ClassBase
         {
             return;
         }
-        if (root.name.EndsWith(Const.Str_UISubScreenEndType) == false)
+        if (root.name.EndsWith(UIConstEditor.Str_UISubScreenEndType) == false)
         {
-            Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", Const.Str_UISubScreenEndType);
+            Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", UIConstEditor.Str_UISubScreenEndType);
             return;
         }
 
@@ -35,15 +36,15 @@ public class UISubScreenBaseCreate : ClassBase
         // 类名
         SetClassName(root.name);
 
-        string ctrlName = root.name + Const.Str_UISubCtrlEndType;
+        string ctrlName = root.name + UIConstEditor.Str_UISubCtrlEndType;
 
         // 构造函数
         List<AbstractParameter> paramList = new List<AbstractParameter>();
-        ParameterBase param = new ParameterBase("", Const.Str_UICtrlBaseParam, Const.Class_UISubCtrlBase);
+        ParameterBase param = new ParameterBase("", UIConstEditor.Str_UICtrlBaseParam, UIConstEditor.Class_UISubCtrlBase);
         paramList.Add(param);
 
         List<string> parentParamValueList = new List<string>();
-        parentParamValueList.Add(Const.Str_UICtrlBaseParam);
+        parentParamValueList.Add(UIConstEditor.Str_UICtrlBaseParam);
 
 
         MethodBase construct = new MethodBase();
@@ -54,22 +55,22 @@ public class UISubScreenBaseCreate : ClassBase
         SetConstructFunc(construct);
 
         // 变量
-        FieldBase field = new FieldBase(Const.Access_Private, "", Const.Str_UICtrlParam, ctrlName, "");
+        FieldBase field = new FieldBase(Const.Access_Private, "", UIConstEditor.Str_UICtrlParam, ctrlName, "");
         AddField(field);
 
         // 重写方法
         List<string> initBody = new List<string>();
-        initBody.Add(string.Format(Const.Str_MethodBase, Const.Str_UIMethod_Init));
-        initBody.Add(string.Format("{0}{1} = {2} as {3};", space, Const.Str_UICtrlParam, Const.Str_UICtrlBaseParam, ctrlName));
+        initBody.Add(string.Format(Const.Str_MethodBase, UIConstEditor.Str_UIMethod_Init));
+        initBody.Add(string.Format("{0}{1} = {2} as {3};", space, UIConstEditor.Str_UICtrlParam, UIConstEditor.Str_UICtrlBaseParam, ctrlName));
         initBody.Add(space);
         initBody.Add(space + "// 注册UI监听");
-        initBody.Add(string.Format("{0}{1}();", space, Const.Str_UIMethod_RegisterUI));
+        initBody.Add(string.Format("{0}{1}();", space, UIConstEditor.Str_UIMethod_RegisterUI));
         initBody.Add(space + "// 注册事件监听");
-        initBody.Add(string.Format("{0}{1}();", space, Const.Str_UIMethod_RegisterFevent));
+        initBody.Add(string.Format("{0}{1}();", space, UIConstEditor.Str_UIMethod_RegisterFevent));
         MethodBase init = new MethodBase();
         init.SetAccess(Const.Access_Protected)
                     .SetDeclaration(Const.Declaration_Override)
-                    .SetMethodName(Const.Str_UIMethod_Init)
+                    .SetMethodName(UIConstEditor.Str_UIMethod_Init)
                     .SetReturnType(Const.Return_Void)
                     .SetMethodBody(initBody)
                     .SetAnnotation("初始化");
@@ -78,11 +79,11 @@ public class UISubScreenBaseCreate : ClassBase
 
 
         List<string> disposeBody = new List<string>();
-        disposeBody.Add(string.Format(Const.Str_MethodBase, Const.Str_UIMethod_Dispose));
+        disposeBody.Add(string.Format(Const.Str_MethodBase, UIConstEditor.Str_UIMethod_Dispose));
         MethodBase dispose = new MethodBase();
         dispose.SetAccess(Const.Access_Public)
                 .SetDeclaration(Const.Declaration_Override)
-                .SetMethodName(Const.Str_UIMethod_Dispose)
+                .SetMethodName(UIConstEditor.Str_UIMethod_Dispose)
                 .SetReturnType(Const.Return_Void)
                 .SetMethodBody(disposeBody)
                 .SetAnnotation("销毁");
@@ -90,14 +91,14 @@ public class UISubScreenBaseCreate : ClassBase
 
         MethodBase registerUI = new MethodBase();
         registerUI.SetAccess(Const.Access_Private)
-                .SetMethodName(Const.Str_UIMethod_RegisterUI)
+                .SetMethodName(UIConstEditor.Str_UIMethod_RegisterUI)
                 .SetReturnType(Const.Return_Void)
                 .SetAnnotation("UI事件注册");
         AddMethod(registerUI);
 
         MethodBase registerFevent = new MethodBase();
         registerFevent.SetAccess(Const.Access_Private)
-                .SetMethodName(Const.Str_UIMethod_RegisterFevent)
+                .SetMethodName(UIConstEditor.Str_UIMethod_RegisterFevent)
                 .SetReturnType(Const.Return_Void)
                 .SetAnnotation("消息事件注册");
         AddMethod(registerFevent);
@@ -134,7 +135,7 @@ public class UISubScreenBaseCreate : ClassBase
 
     protected override string GetParentClass()
     {
-        return Const.Class_SubScreenBase;
+        return UIConstEditor.Class_SubScreenBase;
     }
 
     protected override List<string> GetUsingNamespace()

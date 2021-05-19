@@ -9,6 +9,7 @@ using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using System.IO;
 using System.Text.RegularExpressions;
+using ScriptsGenerate;
 
 public class UIStyleChangeEditor : Editor
 {
@@ -26,7 +27,7 @@ public class UIStyleChangeEditor : Editor
         {EUIBindItemType.Scroll,Const.Tag_ScrollRect },
         {EUIBindItemType.Input,Const.Tag_InputField },
         {EUIBindItemType.RectTransform,Const.Tag_RectTransform },
-        {EUIBindItemType.ReusableLayoutGroup,Const.Tag_ReusableLayoutGroup },
+        //{EUIBindItemType.ReusableLayoutGroup,Const.Tag_ReusableLayoutGroup },
         {EUIBindItemType.CommonItemScrollView,Const.Tag_Item },
     };
 
@@ -103,7 +104,7 @@ public class UIStyleChangeEditor : Editor
                 var prefabStage = PrefabStageUtility.GetPrefabStage(go);
                 if (prefabStage != null)
                 {
-                    if (UIScriptsHelper.IsIgnored(go))
+                    if (ScriptsHelper.IsIgnored(go))
                     {
                         continue;
                     }
@@ -112,12 +113,12 @@ public class UIStyleChangeEditor : Editor
                     {
                         if (t.Value == type)
                         {
-                            var data = UIScriptsHelper.ParseName(go);
+                            var data = ScriptsHelper.ParseName(go);
                             string tag = t.Key;
                             data.tags.Add(tag);
                             Selection.activeGameObject = go;
                             HierarchyEditor.AddTag(tag);
-                            nameDic[item.Name] = UIScriptsHelper.GetFieldName(data.name, tag);
+                            nameDic[item.Name] = ScriptsHelper.GetFieldName(data.name, tag);
                             break;
                         }
                     }
@@ -136,18 +137,18 @@ public class UIStyleChangeEditor : Editor
         Dictionary<string, string> nameDic = new Dictionary<string, string>();
         foreach (var item in bindItems)
         {
-            if (UIScriptsHelper.IsIgnored(item.go))
+            if (ScriptsHelper.IsIgnored(item.go))
             {
                 continue;
             }
             string tag = "";
             if (m_BindTypeDic.TryGetValue(item.bindType, out tag))
             {
-                var data = UIScriptsHelper.ParseName(item.go);
+                var data = ScriptsHelper.ParseName(item.go);
                 data.tags.Add(tag);
                 Selection.activeGameObject = item.go;
                 HierarchyEditor.AddTag(tag);
-                nameDic[item.variableName] = UIScriptsHelper.GetFieldName(data.name, tag);
+                nameDic[item.variableName] = ScriptsHelper.GetFieldName(data.name, tag);
             }
         }
         return nameDic;
@@ -180,7 +181,7 @@ public class UIStyleChangeEditor : Editor
     [MenuItem("UITools/修改脚本变量名")]
     private static void AutoReplace()
     {
-        string path = EditorUtility.OpenFilePanel("请选择要替换的脚本", Path.Combine(Directory.GetCurrentDirectory(), HierarchyEditor.UIScriptCreatePath), "");
+        string path = EditorUtility.OpenFilePanel("请选择要替换的脚本", Path.Combine(Directory.GetCurrentDirectory(), UIHierarchyEditor.UIScriptCreatePath), "");
         if (string.IsNullOrEmpty(path))
         {
             return;

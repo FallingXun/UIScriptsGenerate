@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEditor;
 using System.IO;
+using ScriptsGenerate;
 
 public class LuaUIInspectorSetting : InspectorBase
 {
@@ -56,19 +57,19 @@ public class LuaUIInspectorSetting : InspectorBase
 
         for (int i = 0; i < tfs.Length; i++)
         {
-            if (UIScriptsHelper.IsIgnored(tfs[i].gameObject))
+            if (ScriptsHelper.IsIgnored(tfs[i].gameObject))
             {
                 continue;
             }
-            TagData data = UIScriptsHelper.ParseName(tfs[i].gameObject);
+            TagData data = ScriptsHelper.ParseName(tfs[i].gameObject);
             if (data.tags == null || data.tags.Count <= 0)
             {
                 continue;
             }
             foreach (var tag in data.tags)
             {
-                string name = UIScriptsHelper.GetFieldName(data.name, tag);
-                //Type type = UIScriptsHelper.GetObjectTypeByTag(tfs[i].gameObject, tag);
+                string name = ScriptsHelper.GetFieldName(data.name, tag);
+                //Type type = ScriptsHelper.GetObjectTypeByTag(tfs[i].gameObject, tag);
                 LuaBindItem item = new LuaBindItem();
                 item.variableName = name;
                 item.bindTypeTag = tag;

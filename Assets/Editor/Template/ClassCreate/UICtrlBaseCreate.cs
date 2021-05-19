@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using UnityEditor;
+using ScriptsGenerate;
 
 public class UICtrlBaseCreate : ClassBase
 {
@@ -12,14 +13,14 @@ public class UICtrlBaseCreate : ClassBase
         {
             return;
         }
-        if (root.name.EndsWith(Const.Str_UISubScreenEndType))
+        if (root.name.EndsWith(UIConstEditor.Str_UISubScreenEndType))
         {
-            Debug.LogErrorFormat("命名以 {0} 结尾的物体请使用 {1} 生成！", Const.Str_UIScreenEndType, Const.Str_UISubScreenEndType);
+            Debug.LogErrorFormat("命名以 {0} 结尾的物体请使用 {1} 生成！", UIConstEditor.Str_UIScreenEndType, UIConstEditor.Str_UISubScreenEndType);
             return;
         }
-        if (root.name.EndsWith(Const.Str_UIScreenEndType) == false)
+        if (root.name.EndsWith(UIConstEditor.Str_UIScreenEndType) == false)
         {
-            Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", Const.Str_UIScreenEndType);
+            Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", UIConstEditor.Str_UIScreenEndType);
             return;
         }
 
@@ -29,7 +30,7 @@ public class UICtrlBaseCreate : ClassBase
         AddNamespace(Const.Namespace_UnityEngine_UI);
         AddNamespace(Const.Namespace_TMPro);
 
-        SetClassName(root.name + Const.Str_UICtrlEndType);
+        SetClassName(root.name + UIConstEditor.Str_UICtrlEndType);
 
         // 解析变量
         if(ParseField(root) == false)
@@ -59,7 +60,7 @@ public class UICtrlBaseCreate : ClassBase
 
     protected override string GetParentClass()
     {
-        return Const.Class_UICtrlBase;
+        return UIConstEditor.Class_UICtrlBase;
     }
 
     protected override List<string> GetUsingNamespace()

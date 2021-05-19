@@ -6,6 +6,7 @@ using UnityEditor;
 using System.Reflection;
 using System;
 using System.IO;
+using ScriptsGenerate;
 
 public class UICtrlBaseUpdate : ClassBase
 {
@@ -15,21 +16,21 @@ public class UICtrlBaseUpdate : ClassBase
         {
             return;
         }
-        if (root.name.EndsWith(Const.Str_UISubScreenEndType))
+        if (root.name.EndsWith(UIConstEditor.Str_UISubScreenEndType))
         {
-            Debug.LogErrorFormat("命名以 {0} 结尾的物体请使用 {1} 生成！", Const.Str_UIScreenEndType, Const.Str_UISubScreenEndType);
+            Debug.LogErrorFormat("命名以 {0} 结尾的物体请使用 {1} 生成！", UIConstEditor.Str_UIScreenEndType, UIConstEditor.Str_UISubScreenEndType);
             return;
         }
-        if (root.name.EndsWith(Const.Str_UIScreenEndType) == false)
+        if (root.name.EndsWith(UIConstEditor.Str_UIScreenEndType) == false)
         {
-            Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", Const.Str_UIScreenEndType);
+            Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", UIConstEditor.Str_UIScreenEndType);
             return;
         }
 
-        SetClassName(root.name + Const.Str_UICtrlEndType);
+        SetClassName(root.name + UIConstEditor.Str_UICtrlEndType);
 
         // 更新变量
-        if(UpdateField(root) == false)
+        if(UpdateField<UICtrlBase>(root) == false)
         {
             return;
         }

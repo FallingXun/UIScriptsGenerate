@@ -7,210 +7,11 @@ using System.Text;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using System.IO;
+using ScriptsGenerate;
 
-public class HierarchyEditor : Editor
+public class UIHierarchyEditor : Editor
 {
     public const string UIScriptCreatePath = "Assets/Script/Surface/UI/";
-
-    #region 工具
-
-    #region GameObject
-    [MenuItem("GameObject/UI标签/GameObject/添加标签", false, 0)]
-    public static void AddTag_GameObject()
-    {
-        AddTag(Const.Tag_GameObject);
-    }
-
-    [MenuItem("GameObject/UI标签/GameObject/移除标签", false, 0)]
-    public static void RemoveTag_GameObject()
-    {
-        RemoveTag(Const.Tag_GameObject);
-    }
-    #endregion
-
-    #region Transform
-    [MenuItem("GameObject/UI标签/Transform/添加标签", false, 0)]
-    public static void AddTag_Transform()
-    {
-        AddTag(Const.Tag_Transform);
-    }
-
-    [MenuItem("GameObject/UI标签/Transform/移除标签", false, 0)]
-    public static void RemoveTag_Transform()
-    {
-        RemoveTag(Const.Tag_Transform);
-    }
-    #endregion
-
-    #region RectTransform
-    [MenuItem("GameObject/UI标签/RectTransform/添加标签", false, 0)]
-    public static void AddTag_RectTransform()
-    {
-        AddTag(Const.Tag_RectTransform);
-    }
-
-    [MenuItem("GameObject/UI标签/RectTransform/移除标签", false, 0)]
-    public static void RemoveTag_RectTransform()
-    {
-        RemoveTag(Const.Tag_RectTransform);
-    }
-    #endregion
-
-    #region TextMeshProUGUI
-    [MenuItem("GameObject/UI标签/TextMeshProUGUI/添加标签", false, 0)]
-    public static void AddTag_TextMeshProUGUI()
-    {
-        AddTag(Const.Tag_TextMeshProUGUI);
-    }
-
-    [MenuItem("GameObject/UI标签/TextMeshProUGUI/移除标签", false, 0)]
-    public static void RemoveTag_TextMeshProUGUI()
-    {
-        RemoveTag(Const.Tag_TextMeshProUGUI);
-    }
-    #endregion
-
-    #region Image
-    [MenuItem("GameObject/UI标签/Image/添加标签", false, 0)]
-    public static void AddTag_Image()
-    {
-        AddTag(Const.Tag_Image);
-    }
-
-    [MenuItem("GameObject/UI标签/Image/移除标签", false, 0)]
-    public static void RemoveTag_Image()
-    {
-        RemoveTag(Const.Tag_Image);
-    }
-    #endregion
-
-    #region RawImage
-    [MenuItem("GameObject/UI标签/RawImage/添加标签", false, 0)]
-    public static void AddTag_RawImage()
-    {
-        AddTag(Const.Tag_RawImage);
-    }
-
-    [MenuItem("GameObject/UI标签/RawImage/移除标签", false, 0)]
-    public static void RemoveTag_RawImage()
-    {
-        RemoveTag(Const.Tag_RawImage);
-    }
-    #endregion
-
-    #region Button
-    [MenuItem("GameObject/UI标签/Button/添加标签", false, 0)]
-    public static void AddTag_Button()
-    {
-        AddTag(Const.Tag_Button);
-    }
-
-    [MenuItem("GameObject/UI标签/Button/移除标签", false, 0)]
-    public static void RemoveTag_Button()
-    {
-        RemoveTag(Const.Tag_Button);
-    }
-    #endregion
-
-    #region Slider
-    [MenuItem("GameObject/UI标签/Slider/添加标签", false, 0)]
-    public static void AddTag_Slider()
-    {
-        AddTag(Const.Tag_Slider);
-    }
-
-    [MenuItem("GameObject/UI标签/Slider/移除标签", false, 0)]
-    public static void RemoveTag_Slider()
-    {
-        RemoveTag(Const.Tag_Slider);
-    }
-    #endregion
-
-    #region Toggle
-    [MenuItem("GameObject/UI标签/Toggle/添加标签", false, 0)]
-    public static void AddTag_Toggle()
-    {
-        AddTag(Const.Tag_Toggle);
-    }
-
-    [MenuItem("GameObject/UI标签/Toggle/移除标签", false, 0)]
-    public static void RemoveTag_Toggle()
-    {
-        RemoveTag(Const.Tag_Toggle);
-    }
-    #endregion
-
-    #region Dropdown
-    [MenuItem("GameObject/UI标签/Dropdown/添加标签", false, 0)]
-    public static void AddTag_Dropdown()
-    {
-        AddTag(Const.Tag_DropDown);
-    }
-
-    [MenuItem("GameObject/UI标签/Dropdown/移除标签", false, 0)]
-    public static void RemoveTag_Dropdown()
-    {
-        RemoveTag(Const.Tag_DropDown);
-    }
-    #endregion
-
-    #region ScrollRect
-    [MenuItem("GameObject/UI标签/ScrollRect/添加标签", false, 0)]
-    public static void AddTag_ScrollRect()
-    {
-        AddTag(Const.Tag_ScrollRect);
-    }
-
-    [MenuItem("GameObject/UI标签/ScrollRect/移除标签", false, 0)]
-    public static void RemoveTag_ScrollRect()
-    {
-        RemoveTag(Const.Tag_ScrollRect);
-    }
-    #endregion
-
-    #region InputField
-    [MenuItem("GameObject/UI标签/InputField/添加标签", false, 0)]
-    public static void AddTag_InputField()
-    {
-        AddTag(Const.Tag_InputField);
-    }
-
-    [MenuItem("GameObject/UI标签/InputField/移除标签", false, 0)]
-    public static void RemoveTag_InputField()
-    {
-        RemoveTag(Const.Tag_InputField);
-    }
-    #endregion
-
-    #region ReusableLayoutGroup
-    [MenuItem("GameObject/UI标签/ReusableLayoutGroup/添加标签", false, 0)]
-    public static void AddTag_ReusableLayoutGroup()
-    {
-        AddTag(Const.Tag_ReusableLayoutGroup);
-    }
-
-    [MenuItem("GameObject/UI标签/ReusableLayoutGroup/移除标签", false, 0)]
-    public static void RemoveTag_ReusableLayoutGroup()
-    {
-        RemoveTag(Const.Tag_ReusableLayoutGroup);
-    }
-    #endregion
-
-    #region Item
-    [MenuItem("GameObject/UI标签/Item/添加标签", false, 0)]
-    public static void AddTag_Item()
-    {
-        AddTag(Const.Tag_Item);
-    }
-
-    [MenuItem("GameObject/UI标签/Item/移除标签", false, 0)]
-    public static void RemoveTag_Item()
-    {
-        RemoveTag(Const.Tag_Item);
-    }
-    #endregion
-
-    #endregion
 
     [MenuItem("GameObject/UI脚本/CtrlBase/生成脚本", false, 0)]
     public static void CreateCtrlClass()
@@ -256,7 +57,7 @@ public class HierarchyEditor : Editor
         UICtrlBaseUpdate ctrl = new UICtrlBaseUpdate(go);
         if (ctrl.IsLegal)
         {
-            FileInfo file = UIScriptsHelper.FindClassFileInfo(ctrl.ClassName);
+            FileInfo file = ScriptsHelper.FindClassFileInfo(ctrl.ClassName);
             using (StreamWriter writer = new StreamWriter(file.FullName, false, Encoding.UTF8))
             {
                 writer.Write(ctrl.UpdateClass(ctrl.ClassStr));
@@ -308,7 +109,7 @@ public class HierarchyEditor : Editor
         UISubCtrlBaseUpdate ctrl = new UISubCtrlBaseUpdate(go);
         if (ctrl.IsLegal)
         {
-            FileInfo file = UIScriptsHelper.FindClassFileInfo(ctrl.ClassName);
+            FileInfo file = ScriptsHelper.FindClassFileInfo(ctrl.ClassName);
             using (StreamWriter writer = new StreamWriter(file.FullName, false, Encoding.UTF8))
             {
                 writer.Write(ctrl.UpdateClass(ctrl.ClassStr));
@@ -451,7 +252,7 @@ public class HierarchyEditor : Editor
         UIConstUpdate ctrl = new UIConstUpdate(Selection.activeGameObject);
         if (ctrl.IsLegal)
         {
-            FileInfo file = UIScriptsHelper.FindClassFileInfo(ctrl.ClassName);
+            FileInfo file = ScriptsHelper.FindClassFileInfo(ctrl.ClassName);
             using (StreamWriter writer = new StreamWriter(file.FullName, false, Encoding.UTF8))
             {
                 writer.Write(ctrl.UpdateClass(ctrl.ClassStr));
@@ -497,68 +298,4 @@ public class HierarchyEditor : Editor
         }
     }
 
-    #region 解析方法
-    public static void AddTag(string tag)
-    {
-        var objs = Selection.gameObjects;
-        if (objs != null)
-        {
-            foreach (var go in objs)
-            {
-                if(go.transform.parent == null)
-                {
-                    continue;
-                }
-                TagData msg = UIScriptsHelper.ParseName(go);
-                if (msg.tags != null && msg.tags.Contains(tag))
-                {
-                    continue;
-                }
-                if (msg.tags == null)
-                {
-                    msg.tags = new HashSet<string>();
-                }
-                msg.tags.Add(tag);
-                go.name = UIScriptsHelper.CombineName(msg);
-                var prefabStage = PrefabStageUtility.GetPrefabStage(go);
-                if (prefabStage != null)
-                {
-                    EditorSceneManager.MarkSceneDirty(prefabStage.scene);
-                }
-            }
-        }
-    }
-
-    public static void RemoveTag(string tag)
-    {
-        var objs = Selection.gameObjects;
-        if (objs != null)
-        {
-            foreach (var go in objs)
-            {
-                if (go.transform.parent == null)
-                {
-                    continue;
-                }
-                TagData msg = UIScriptsHelper.ParseName(go);
-                if (msg.tags == null)
-                {
-                    continue;
-                }
-                if (msg.tags.Contains(tag) == false)
-                {
-                    continue;
-                }
-                msg.tags.Remove(tag);
-                go.name = UIScriptsHelper.CombineName(msg);
-                var prefabStage = PrefabStageUtility.GetPrefabStage(go);
-                if (prefabStage != null)
-                {
-                    EditorSceneManager.MarkSceneDirty(prefabStage.scene);
-                }
-            }
-        }
-    }
-
-    #endregion
 }

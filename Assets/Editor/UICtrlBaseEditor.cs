@@ -14,11 +14,11 @@ public class UICtrlBaseEditor : Editor
         {
             if (target is LuaCtrlBase)
             {
-                HierarchyEditor.SetLuaUIToInspector(((LuaCtrlBase)target).gameObject);
+                UIHierarchyEditor.SetLuaUIToInspector(((LuaCtrlBase)target).gameObject);
             }
             else
             {
-                HierarchyEditor.SetUIToInspector(((UICtrlBase)target).gameObject);
+                UIHierarchyEditor.SetUIToInspector(((UICtrlBase)target).gameObject);
             }
         }
 
@@ -26,11 +26,11 @@ public class UICtrlBaseEditor : Editor
         {
             if (target is LuaCtrlBase)
             {
-                HierarchyEditor.SetLuaUIToInspector(((LuaCtrlBase)target).gameObject);
+                UIHierarchyEditor.SetLuaUIToInspector(((LuaCtrlBase)target).gameObject);
             }
             else
             {
-                HierarchyEditor.UpdateCtrlClass(((UICtrlBase)target).gameObject);
+                UIHierarchyEditor.UpdateCtrlClass(((UICtrlBase)target).gameObject);
             }
         }
         EditorGUILayout.Space();
@@ -48,22 +48,22 @@ public class UISubCtrlBaseEditor : Editor
         {
             if (target is LuaSubCtrlBase)
             {
-                HierarchyEditor.SetLuaUIToInspector(((LuaSubCtrlBase)target).gameObject);
+                UIHierarchyEditor.SetLuaUIToInspector(((LuaSubCtrlBase)target).gameObject);
             }
             else
             {
-                HierarchyEditor.SetUIToInspector(((UISubCtrlBase)target).gameObject);
+                UIHierarchyEditor.SetUIToInspector(((UISubCtrlBase)target).gameObject);
             }
         }
         if (GUILayout.Button("更新脚本变量"))
         {
             if (target is LuaSubCtrlBase)
             {
-                HierarchyEditor.SetLuaUIToInspector(((LuaSubCtrlBase)target).gameObject);
+                UIHierarchyEditor.SetLuaUIToInspector(((LuaSubCtrlBase)target).gameObject);
             }
             else
             {
-                HierarchyEditor.UpdateSubCtrlClass(((UISubCtrlBase)target).gameObject);
+                UIHierarchyEditor.UpdateSubCtrlClass(((UISubCtrlBase)target).gameObject);
             }
         }
         EditorGUILayout.Space();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using UnityEditor;
+using ScriptsGenerate;
 
 public class UISubCtrlBaseCreate : ClassBase
 {
@@ -13,9 +14,9 @@ public class UISubCtrlBaseCreate : ClassBase
             return;
         }
 
-        if (root.name.EndsWith(Const.Str_UISubScreenEndType) == false)
+        if (root.name.EndsWith(UIConstEditor.Str_UISubScreenEndType) == false)
         {
-            Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", Const.Str_UISubScreenEndType);
+            Debug.LogErrorFormat("请选择命名以 {0} 结尾的物体！", UIConstEditor.Str_UISubScreenEndType);
             return;
         }
 
@@ -25,7 +26,7 @@ public class UISubCtrlBaseCreate : ClassBase
         AddNamespace(Const.Namespace_UnityEngine_UI);
         AddNamespace(Const.Namespace_TMPro);
 
-        SetClassName(root.name + Const.Str_UISubCtrlEndType);
+        SetClassName(root.name + UIConstEditor.Str_UISubCtrlEndType);
 
         // 解析变量
         if (ParseField(root) == false)
@@ -56,7 +57,7 @@ public class UISubCtrlBaseCreate : ClassBase
 
     protected override string GetParentClass()
     {
-        return Const.Class_UISubCtrlBase;
+        return UIConstEditor.Class_UISubCtrlBase;
     }
 
     protected override List<string> GetUsingNamespace()
